@@ -1,10 +1,31 @@
 <template>
-  <nav>
+<NavbarView></NavbarView>
+  <!-- <nav id="nav">
     <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+    <router-link to="/product">Product</router-link> |
+    <router-link to="/cart">Cart</router-link> |
+    <router-link to="/login" class="login d-show">Login</router-link>
+    TODO:logout畫面
+    <router-link to="/logout" class="logout d-none">Logout</router-link>
+  </nav> -->
+  <router-view />
+<FooterView></FooterView>
 </template>
+<script>
+import NavbarView from "./components/NavbarView.vue"
+import FooterView from "./components/FooterView.vue"
+
+export default {
+  components: {
+    NavbarView,
+    FooterView,
+  },
+  methods:{
+
+  }
+}
+
+</script>
 
 <style lang="less">
 #app {
@@ -15,15 +36,16 @@
   color: #2c3e50;
 }
 
-nav {
-  padding: 30px;
+#nav {
 
   a {
     font-weight: bold;
     color: #2c3e50;
+    text-decoration: none;
+    text-shadow: #aaa;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: #aaa;
     }
   }
 }

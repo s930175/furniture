@@ -1,0 +1,185 @@
+<template>
+  <div class="card-slider">
+    <div class="card-slider-items">
+      <transition-group name="flip-list">
+        <div
+          class="card-slider-item"
+          v-for="item in showImages"
+          :key="item.id"
+          :data-id="item.id"
+        >
+          <a><img :src="item.src"/></a>
+        </div>
+      </transition-group>
+    </div>
+  </div>
+  <!-- <Describe :parentDesc="item.desc"></Describe> -->
+  <div class="btn">
+    <button @click="change(now - 1)" class="btnPrev">
+      <i class="fa-solid fa-angle-left"></i>
+    </button>
+    <button @click="change(now + 1)" class="btnNext">
+      <i class="fa-solid fa-angle-right"></i>
+    </button>
+  </div>
+</template>
+
+<script>
+import Describe from "./DescribeView.vue";
+import Carouse from "./CarouselView.vue";
+
+export default {
+  components: {
+    Describe,
+    Carouse,
+  },
+  data() {
+    return {
+      //切換
+      now: 0,
+      count: 0,
+      imgs: [
+{"id":"1","category":"桌子","name":"摺疊桌","desc":"適用於小型客廳，廚房、臥室等，您可以選擇三種使用方式：不使用活動桌板、使用一側或兩側桌板，可坐2-4人，尺寸可依需求輕鬆調整。底下可收納4張小折疊椅，節省空間超便利。","size":"長度: 90 公分\r\n最短長度: 45 公分\r\n最長長度: 135 公分\r\n寬度: 93 公分\r\n高度: 74 公分\r\n","material":"木頭","weight":"25","price":"3000", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"2","category":"桌子","name":"吧檯桌","desc":"適用於工作、居家或是用餐使用，可供倚靠、擺放椅子，且耐撞、耐髒汙。還在為了裝潢風格和家具不符而煩惱嗎?本產品風格適合任何場合包君滿意。\r\n","size":"高度:105 公分\r\n直徑:70 公分","material":"金屬","weight":"6","price":"1769", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"3","category":"桌子\r\n","name":"長桌","desc":"適用於廚房或餐廳，純白桌面更能襯托出食物的美味，乃居家良品家庭必備。設計簡約，搭配任何風格裝潢皆可適用。\r\n","size":"長度: 125 公分\r\n寬度: 75 公分\r\n高度: 74 公分\r\n","material":"金屬","weight":"11","price":"2487", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"4","category":"桌子\r\n","name":"餐桌","desc":"木紋餐桌讓您的格調更上一層，使用木製桌椅更能襯托出家具的質感。本產品採用實心松木，讓您在用餐的同時彷彿置身山林中，吸收大自然的芬多精。\r\n","size":"長度: 118 公分\r\n寬度: 74 公分\r\n高度: 74 公分\r\n","material":"木頭","weight":"35","price":"6999", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"5","category":"桌子\r\n","name":"餐桌","desc":"若您的預算考量不高，可參考經濟實惠又實惠的低矮型家常餐桌。不僅價格平易近人，還省去您購買椅子的預算，將錢花在刀口上的家庭務必考慮本產品。\r\n","size":"長度: 235 公分\r\n寬度: 100 公分\r\n高度:40 公分","material":"木頭、金屬","weight":"15","price":"699", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"6","category":"桌子\r\n","name":"壁掛式摺疊桌","desc":"可將桌面往下摺疊，讓您家的空間利用更上層樓。立起後可放小型物品或是包包等，耐重70公斤，千萬不可放置過重物品否則後果自負。\r\n","size":"寬度:74 公分\r\n深度:60 公分\r\n組合高度:43 公分","material":"美耐板","weight":"8","price":"800", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"7","category":"桌子\r\n","name":"圓桌","desc":"圓桌適合聚會、親朋好友聊天使用，柔和的圓形及木頭色的桌面讓您看起來親和力更高，告別邊緣人模式，好友自動來。\r\n","size":"高度:75 公分\r\n直徑:85 公分","material":"木頭、金屬","weight":"5","price":"600", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"8","category":"椅子\r\n","name":"餐桌椅","desc":"木製椅身搭配柔軟椅墊，和木製餐桌搭配完美。椅背具有弧度，讓您長時間坐在上面也不會腰酸背痛；椅套可拆卸清潔，讓您家椅墊每天乾乾淨淨沒有病毒。\r\n","size":"測試weight:110 公斤\r\n寬度:45 公分\r\n深度:51 公分\r\n高度:95 公分\r\n座椅寬度:45 公分\r\n座椅深度:39 公分\r\n座椅高度:48 公分","material":"木頭","weight":"5","price":"789", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"9","category":"椅子\r\n","name":"餐桌椅","desc":"純黑金屬椅，讓您的用餐環境看起來高貴不凡。椅墊淺色設計讓整體風格不會過於冷硬，卻又帶點高冷。金屬材質耐撞耐髒，就算用了十年還跟新的一樣。\r\n","size":"測試weight: 180公斤\r\n寬度: 42 公分\r\n深度: 49 公分\r\n高度: 85 公分\r\n座椅寬度: 42 公分\r\n座椅深度: 38 公分\r\n座椅高度: 48 公分","material":"金屬","weight":"8","price":"1234", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"10","category":"椅子\r\n","name":"辦公椅","desc":"親新現代上班族風格，若您在工作中遇到爛同事鳥下屬慣上司，坐上本產品煩惱皆可全數消失。結構堅固耐用，當您在工作上不順時可承受您的毆打。\r\n","size":"測試weight:110 公斤\r\n寬度:49 公分\r\n深度:55 公分\r\n高度:81 公分\r\n座椅寬度:45 公分\r\n座椅深度:40 公分\r\n座椅高度:45 公分","material":"金屬","weight":"5","price":"886", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"11","category":"椅子\r\n","name":"休憩椅","desc":"適合放在陽台、窗戶旁，休假時泡杯咖啡坐在本產品上能夠達到最佳的放鬆效果，搭配本公司餐桌類產品效果更佳。\r\n","size":"測試weight: 110 公斤\r\n寬度: 45 公分\r\n深度: 51 公分\r\n高度: 81 公分\r\n座椅寬度: 45 公分\r\n座椅深度: 41 公分\r\n座椅高度: 43 公分","material":"木頭","weight":"5","price":"999", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"12","category":"椅子\r\n","name":"兒童椅","desc":"您家小孩哭鬧不休、坐不住嗎?請務必試試本產品，保證您的小孩一座即愛上。小巧可愛的椅身即精緻的椅面保證讓孩子們滿意。\r\n","size":"測試weight:50 公斤\r\n寬度:23 公分\r\n深度:25 公分\r\n高度:45 公分\r\n座椅寬度:20 公分\r\n座椅深度:21 公分\r\n座椅高度:30 公分","material":"木頭","weight":"3","price":"426", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"13","category":"椅子\r\n","name":"沙發椅","desc":"柔軟的沙發材質讓您的屁股獲得最大的解放，儘管只有單人座仍可座得如同長沙發般放鬆自在，搭配兩旁的扶手，讓您有古代帝王寶座之感。\r\n","size":"測試weight: 100 公斤\r\n寬度: 60 公分\r\n深度: 56 公分\r\n高度: 82 公分\r\n座椅寬度: 42 公分\r\n座椅深度: 40 公分\r\n座椅高度: 49 公分","material":"金屬","weight":"10","price":"1450", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"14","category":"椅子\r\n","name":"摺疊椅","desc":"一張椅子有多少優點？這張椅子值得你多看幾眼，它可以摺疊，也很安全，可承受100公斤的weight，質感卻很輕盈；空間有限？不妨把它掛在牆上\r\n","size":"測試weight: 100 公斤\r\n寬度: 41 公分\r\n深度: 45 公分\r\n高度: 78 公分\r\n座椅寬度: 37 公分\r\n座椅深度: 34 公分\r\n座椅高度: 45 公分","material":"金屬、塑膠","weight":"2","price":"550", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"15","category":"椅子\r\n","name":"塑膠椅","desc":"儘管身為塑膠，卻從不把座在其上的人當塑膠，輕便耐撞又便宜的特性適合所有人，多張堆疊也不占空間，就是有點難拔起來。\r\n","size":"測試weight:110 公斤\r\n寬度:39 公分\r\n深度:47 公分\r\n高度:77 公分\r\n座椅寬度:39 公分\r\n座椅深度:34 公分\r\n座椅高度:45 公分","material":"塑膠","weight":"2","price":"250", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"16","category":"櫃子\r\n","name":"大型置物櫃","desc":"模型多到沒地方放嗎?害怕珍藏的公仔手辦長灰塵嗎?本公司針對您的收藏品精心打造大型玻璃置物櫃，保證您的珍寶乾淨又整齊。各層層板可調整高度，讓您的空間發揮到極致。\r\n","size":"寬度: 160 公分\r\n深度: 30 公分\r\n高度: 202 公分\r\n層板最大承weight: 30 公斤","material":"木頭","weight":"45","price":"7900", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"17","category":"櫃子\r\n","name":"長形置物櫃","desc":"受夠親戚小孩總是開你櫃子玩你模型了嗎?很可惜，本產品沒有上鎖功能，但純黑色調能有部分嚇阻作用，不過模型還是會被玩壞。\r\n","size":"寬度:80 公分\r\n深度:30 公分\r\n高度:202 公分\r\n層板最大承weight:30 公斤","material":"木頭","weight":"41","price":"4580", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"18","category":"櫃子\r\n","name":"透明三層玻璃櫃","desc":"漂亮設計，能輕鬆搭配您的居家佈置，和您的裝潢融為一體，體積小能放進各種角落裡。\r\n","size":"深度: 30 公分\r\n高度: 116 公分\r\n層板最大承weight: 5 公斤\r\n寬度: 34 公分","material":"塑膠","weight":"12","price":"550", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"19","category":"櫃子\r\n","name":"玻璃滑門櫃","desc":"玻璃窗可讓您裡面的物品一目了然，且可固定於牆上，十級地震也不怕。滑門設計可讓您的櫃子開啟時不占空間，真棒!\r\n","size":"寬度: 105 公分\r\n深度: 36 公分\r\n高度: 116 公分\r\n層板最大承weight: 10 公斤","material":"木頭","weight":"23","price":"1280", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"20","category":"櫃子\r\n","name":"抽屜玻璃門櫃","desc":"除了基本的玻璃門外，下面還新增了抽屜!讓您不可告人的祕密不會赤裸裸的呈現給外人!噢對了，這組櫃子還是沒有鎖:)。\r\n","size":"寬度: 90 公分\r\n深度: 37 公分\r\n高度: 198 公分\r\n層板最大承weight: 30 公斤","material":"木頭","weight":"51","price":"5487", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"21","category":"櫃子\r\n","name":"雙開玻璃門櫃","desc":"小小的櫃子幫您省下大大的空間。本產品雖小，但比華碩品質還要更加堅若磐石，可固定於牆上或是立於地上。\r\n","size":"寬度: 78 公分\r\n深度: 41 公分\r\n高度: 95 公分\r\n層板最大承weight: 5 公斤","material":"木頭","weight":"22","price":"2850", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"22","category":"燈具\r\n","name":"工作檯燈","desc":"上班上到黯淡無光?那肯定是缺了這一盞檯燈，幫您照亮臉上的每個毛孔和黑眼圈，讓您清楚看見這個月又加了多少班。\r\n","size":"最大瓦數: 7.5 瓦特\r\n燈罩寬度: 7 公分\r\n高度: 67 公分\r\n底座直徑: 21 公分\r\n電線長度: 1.85 公尺","material":"塑膠","weight":"2","price":"1440", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"23","category":"燈具\r\n","name":"金屬檯燈","desc":"看起來高大上的金屬檯燈，讓您的工作區閃閃發光。此外體積小不占空間，讓您的桌面有更大的空間堆放文件。\r\n","size":"最大瓦數:7.0 瓦特\r\n長度:41 公分\r\n寬度:20 公分\r\n高度:54 公分\r\n底座直徑:20 公分\r\n燈罩直徑:5.4 公分\r\n電線長度:2.5 公尺","material":"金屬","weight":"3","price":"2650", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"24","category":"燈具\r\n","name":"床邊桌燈","desc":"典雅的外型設計讓您的睡眠品質更佳，三段調光設計再也不讓枕邊人被燈亮醒。搭配一點輕音樂可讓整體氛圍更棒，務必嘗試看看。\r\n","size":"最大瓦數: 27 瓦特\r\n長度: 24 公分\r\n寬度: 24 公分\r\n高度: 23 公分","material":"金屬","weight":"2","price":"3390", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"25","category":"燈具\r\n","name":"手工落地燈","desc":"平易近人的價格，手工精緻的外觀，以及絕對會被你家的貓抓爆的紙質外觀，您值得擁有。\r\n","size":"燈罩寬度: 33 公分\r\n高度: 136 公分\r\n電線長度: 250 公分\r\n電力: 7.5 瓦特","material":"紙","weight":"1","price":"539", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"26","category":"燈具\r\n","name":"床邊立燈","desc":"典雅的外型設計讓您的睡眠品質更佳，三段調光設計再也不讓枕邊人被燈亮醒。搭配一點輕音樂可讓整體氛圍更棒，務必嘗試看看。…嗯?你說好像在哪裡看過?阿他們就長的一樣啊。\r\n","size":"最大瓦數:13 瓦特\r\n長度: 154 公分\r\n寬度: 24 公分\r\n高度: 23 公分","material":"金屬","weight":"4","price":"1700", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"27","category":"生活用品\r\n","name":"谷關空氣","desc":"來自谷關最新鮮的空氣，連政治人物都為之瘋狂。\r\n","size":"長度:25公分\r\n直徑:12公分","material":"塑膠","weight":"0","price":"30", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"28","category":"生活用品\r\n","name":"阿爾卑斯山礦泉水","desc":"今晚我想來點…阿爾卑斯山上的水。想喝水不用再去爬阿爾卑斯山了!這裡就有最純淨最天然的阿爾卑斯山礦泉水。\r\n","size":"長度:35公分\r\n直徑:15公分","material":"塑膠","weight":"1","price":"180", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"29","category":"生活用品\r\n","name":"玉山芬多精","desc":"來自玉山上的芬多精，經過7749到工法萃取後濃縮自小小一瓶玻璃瓶裡，居家旅行必備，吸一口活力百倍。\r\n","size":"長度:15公分\r\n直徑:8公分","material":"玻璃","weight":"1","price":"990", "src":"https://i.imgur.com/IJrYTO0.jpg"},
+{"id":"30","category":"生活用品\r\n","name":"阿里山陽光","desc":"來自阿里山的陽光，帶點小火車的味道，混雜著外地遊客的口音，一打開彷彿身歷其境。\r\n","size":"長度:15公分\r\n寬度:30公分\r\n高度:15公分","material":"玻璃","weight":"1","price":"3750", "src":"https://i.imgur.com/IJrYTO0.jpg"}
+]
+,
+      count: 0,
+    };
+  },
+  computed: {
+    allImages() {
+      // 10 + 4
+      const ary = [];
+      const total = this.imgs.length;
+      let count;
+      if (total > 0) {
+        while (ary.length < 9 + 4) {
+          count = Math.floor(ary.length / total);
+          for (let i = 0; i < total; i++) {
+            ary.push({
+              id: count + "-" + this.imgs[i].id,
+              src: this.imgs[i].src,
+            });
+            // console.log(count + "-" + this.imgs[i].id);
+          }
+        }
+      }
+      return ary;
+    },
+    showImages() {
+      const start = this.now - 4;
+      return this.allImages.slice(start).concat(this.allImages.slice(0, start));
+    },
+  },
+  methods: {
+    change(index) {
+      const limit = this.allImages.length - 1;
+      this.now = index < 0 ? limit : index > limit ? 0 : index;
+      // if (index < 0) {
+      //   this.now = limit
+      // } else if (index > limit) {
+      //   this.now = 0
+      // } else {
+      //   this.now = index
+      // }
+    },
+  },
+  watch: {},
+  mouted() {
+    //用來塞入BS的JS
+    ;(function () {});
+  },
+};
+// $(document).ready(function () {
+      //   var dataUrl = "http://localhost:8080/furniture_imgs/home.json";
+      //   $.ajax({
+      //     url: dataUrl,
+      //     method: "GET",
+      //     dataType: "json",
+      //     data: "",
+      //     async: true,
+      //     success: (res) => {
+      //       console.log(res);
+      //       vm.information = res;
+      //     },
+      //     error: (err) => {
+      //       console.log(err);
+      //     },
+      //   });
+      // });
+</script>
+
+<style scoped>
+button{
+  border: none;
+  background-color: transparent;
+}
+.card-slider {
+  display: flex;
+  width: 100%;
+  overflow: hidden;
+}
+.card-slider-items {
+  display: flex;
+  width: 100%;
+  margin-left: calc(-25% * 2.5);
+}
+.card-slider-item {
+  z-index: -1;
+  flex: calc(15% - 20px) 0 0;
+  margin: 10px;
+  padding: 10px;
+}
+.card-slider-item:hover {
+  width: 800px;
+}
+.card-slider-item:first-child,
+.card-slider-item:last-child {
+  z-index: -10;
+  visibility: hidden;
+  border: transparent;
+}
+
+img {
+  width: 100%;
+  border: transparent;
+
+}
+
+.flip-list-move {
+  transition: transform 0.5s;
+}
+.btn{
+  margin: 10px;
+}
+</style>
+
+
