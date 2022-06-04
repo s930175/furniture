@@ -16,7 +16,7 @@
             name="email"
             id="user-id"
             placeholder="email"
-            v-model="userName"
+            v-model="account"
           />
         </div>
         <div class="group">
@@ -26,7 +26,7 @@
             name="user-password"
             id="user-password"
             placeholder="6~12英數字"
-            v-model="userPassword"
+            v-model="password"
           />
           <i id="eyes" class="fa-solid fa-eye" @click="toggle_eye(eye)"></i>
         </div>
@@ -44,8 +44,8 @@ export default {
   data() {
     return {
       eye: false,
-      userName: "",
-      userPassword: "",
+      account: "",
+      password: "",
     };
   },
   methods: {
@@ -66,29 +66,47 @@ export default {
     },
     login() {
       //驗證帳號
-      let valUserName = this.userName;
-      let atpos = valUserName.indexOf("@");
-      let dotpos = valUserName.lastIndexOf(".");
+      let valaccount = this.account;
+      let atpos = valaccount.indexOf("@");
+      let dotpos = valaccount.lastIndexOf(".");
       //驗證密碼
-      let valUserPassword = this.userPassword;
+      let valpassword = this.password;
       let reg = /\d[a-zA-Z]{1}/;
-      let newPpassword = reg.test(valUserPassword);
+      let newPpassword = reg.test(valpassword);
       //輸入的數據必須包含@ 符號和點號(.)。 同時，@ 不可以是郵件地址的首字符，並且@ 之後需有至少一個點號
-      if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= valUserName.length) {
+      if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= valaccount.length) {
         alert("請輸入有效email");
-      } else if (valUserPassword.length < 6) {
+      } else if (valpassword.length < 6) {
         confirm("長度太短");
-      } else if (valUserPassword.length > 12) {
+      } else if (valpassword.length > 12) {
         confirm("長度太長");
       } else if (newPpassword == false) {
         alert("密碼格式不符(需6~12英數字混合)");
       } else {
         // localStorage.setItem("token", "ImLogin");
-        alert(`Hi~${valUserName}`)
-        this.$router.push("/");
+        alert(`Hi~${valaccount}`);
+        // this.$router.push("/");
       }
-
     },
+  },
+  async created() {
+    //用來塞入BS的JS
+    (function () {});
+    // php用axios找資料一定愛配formData()
+    let data = new FormData();
+    // data.append('要POST出去的東西', 輸入值)
+    data.append("account", this.account);
+    data.append("password", this.password);
+    let { data: result } = await this.$axios.post("http://localhost/connect/doLogin.php", data);
+    if (result.status == 1) {
+      localStorage.setItem('token', JSON.stringify(result))
+      this.$emit('loginSuccess')
+      this.$router.push('/')
+      this.success = true;
+    } else {
+      this.success = false;
+      alert('帳號或密碼錯誤')
+    }
   },
 };
 </script>

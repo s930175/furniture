@@ -89,7 +89,7 @@ input {
 label {
   /* float: right; */
   position: absolute;
-  top: -8%;
+  top: -5%;
   right: 0;
   left: 90%;
   bottom: 0;

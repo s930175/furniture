@@ -122,6 +122,7 @@ button {
   overflow: hidden;
 }
 .card-slider-items {
+  z-index: -1;
   display: flex;
   width: 100%;
   margin-left: calc(-25% * 2.5);

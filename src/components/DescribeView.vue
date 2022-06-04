@@ -84,6 +84,8 @@ export default {
 <style scoped>
 img {
   width: 300px;
+  height: 300px;
+  overflow: hidden;
   border: 1px solid #aaaaaa;
   border-radius: 30px;
 }

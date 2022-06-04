@@ -1,7 +1,15 @@
 <template>
-  <a @click="productFilter = 'all'" href="javascript:;"><strong>所有商品</strong></a> |
-  <a @click="productFilter = 'buy'" href="javascript:;"><strong>購物車</strong></a>
   <Carouse></Carouse>
+  <div class="link">
+    <a @click="productFilter = 'all'" href="javascript:;"
+      ><strong>所有商品</strong></a
+    >
+    |
+    <a @click="productFilter = 'buy'" href="javascript:;"
+      ><strong>購物車</strong></a
+    >
+  </div>
+
   <Describe
     @choosen="putIntoCart"
     v-for="item in showProducts"
@@ -30,7 +38,7 @@ export default {
       // choosenProduct:[],
       productFilter: "all",
       cartList: [],
-      imgs: []
+      imgs: [],
     };
   },
   computed: {
@@ -66,15 +74,13 @@ export default {
   //   axios.get('../furniture_imgs/home.json')
   //   .then(response => this.information = response)
   // },
-    async created() {
+  async created() {
     //用來塞入BS的JS
     (function () {});
-    const { data:res } = await this.$axios.get(
-      "http://localhost/connect/getProduct.php"
-    );
-    console.log(res)
+    const { data: res } = await this.$axios.get("http://localhost/connect/getProduct.php");
+    console.log(res);
     // console.log('nmsl')
-    this.imgs = res
+    this.imgs = res;
   },
 };
 </script>
@@ -84,8 +90,10 @@ img {
   width: 100%;
   border: transparent;
 }
+.link{
+  margin: 50px;
+}
 a {
-  margin: 40px;
   text-decoration: none;
   color: black;
   font-family: Arial, Helvetica, sans-serif;
