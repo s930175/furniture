@@ -1,12 +1,7 @@
 <template>
   <div class="body">
     <div class="login">
-      <form
-        action=""
-        class="form"
-        name="myForm"
-        method="post"
-      >
+      <form class="form" name="myForm" method="post" target="hidefrime">
         <h2>會員登入</h2>
         <div class="group">
           <label for="account">帳號</label>
@@ -30,10 +25,18 @@
           <i id="eyes" class="fa-solid fa-eye" @click="toggle_eye(eye)"></i>
         </div>
         <div class="btn-group">
-          <input class="btn" name="button" type="submit" value="登入" @click="login" />
+          <input
+            class="btn"
+            name="button"
+            type="submit"
+            value="登入"
+            @click="login"
+          />
           <button class="btn" @click="logout">取消</button>
         </div>
       </form>
+      <!-- 阻止跳頁 -->
+      <iframe name="hidefrime" class="d-none"></iframe>
     </div>
   </div>
 </template>
@@ -47,7 +50,7 @@ export default {
       eye: false,
       account: "",
       password: "",
-      success: false
+      success: false,
     };
   },
   methods: {
@@ -66,26 +69,26 @@ export default {
       //localStorage.removeItem("token");
       this.$router.push("/product");
     },
-    login() {
+    async login() {
       // php用axios找資料一定愛配FormData()
       let data = new FormData();
       // data.append('要POST出去的東西', 輸入值)
       data.append("account", this.account);
       data.append("password", this.password);
-      let { data: result } = this.$axios.post(
+      let { data: result } = await this.$axios.post(
         "http://localhost/connect/doLogin.php",
-        data)
-        console.log(result)
-      ;
+        data
+      );
+      console.log(result);
       if (result) {
-        localStorage.setItem("token", JSON.stringify(result));
-        // this.$emit('loginSuccess')
         this.success == true;
+        localStorage.setItem("user", JSON.stringify(result));
+        console.log(result);
+        // this.$emit('loginSuccess')
         this.$router.push("/");
+        console.log(this.success);
       } else {
         this.success == false;
-        let event = event || window.event;
-        event.preventDefault(); //阻止導頁
         alert("帳號或密碼錯誤");
       }
     },
