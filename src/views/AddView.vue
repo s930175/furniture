@@ -117,32 +117,28 @@ export default {
         alert("密碼格式不符(需6~12英數字混合)");
         return;
       } else {
-        // console.log('hey')
-        alert(`歡迎${this.userName}加入!!!`);
-        this.$router.push("/login");
-      }
-      // php用axios找資料一定愛配formData()
-      let data = new FormData();
-      // data.append('要POST出去的東西', 輸入值)
-      data.append("account", this.account);
-      data.append("password", this.password);
-      data.append("userName", this.userName);
-      let { data: result } = await this.$axios.post(
-        "http://localhost/connect/doSignup.php",
-        data
-      );
-      console.log(result);
-      if (result.status == 1) {
-        this.success == true;
-        // alert(`歡迎${userName}加入!!!`);
-        this.$router.push("/login");
-      } else {
-        this.success == false;
-        // alert('帳號已存在或格式錯誤')
+        let data = new FormData();
+        // data.append('要POST出去的東西', 輸入值)
+        data.append("account", this.account);
+        data.append("password", this.password);
+        data.append("userName", this.userName);
+        let { data: result } = await this.$axios.post(
+          "http://localhost/connect/doSignup.php",
+          data
+        );
+        console.log(result);
+        if (result.status == 1) {
+          this.success == true;
+          alert(`歡迎${this.userName}加入!!!`);
+          this.$router.push("/login");
+        } else {
+          alert("已存在此帳號");
+          return;
+        }
       }
     },
   },
-  async created() {
+  created() {
     //用來塞入BS的JS
     (function () {});
     // 以下寫法PHP看不懂axios的請求
