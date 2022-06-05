@@ -81,20 +81,21 @@ export default {
       );
       console.log(result);
       if (result) {
-        this.success == true;
+        // this.success == true;
         localStorage.setItem("user", JSON.stringify(result));
         console.log(result);
         // this.$emit('loginSuccess')
         this.$router.push("/");
-        console.log(this.success);
+        // console.log(this.success);
       } else {
-        this.success == false;
+        // this.success == false;
         alert("帳號或密碼錯誤");
       }
     },
   },
   created() {},
 };
+// TODO:登出畫面 登入畫面修改
 </script>
 
 <style scoped>

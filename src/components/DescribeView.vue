@@ -79,6 +79,7 @@ export default {
   },
   props: ["id", "price", "src", "name", "desc"],
 };
+// TODO:篩選器，搜尋結果
 </script>
 
 <style scoped>

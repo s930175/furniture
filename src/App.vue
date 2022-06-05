@@ -5,7 +5,6 @@
     <router-link to="/product">Product</router-link> |
     <router-link to="/cart">Cart</router-link> |
     <router-link to="/login" class="login d-show">Login</router-link>
-    TODO:logout畫面
     <router-link to="/logout" class="logout d-none">Logout</router-link>
   </nav> -->
   <router-view />
