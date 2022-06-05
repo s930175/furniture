@@ -151,7 +151,7 @@ export default {
       this.$router.push("/login");
     } else {
       this.success == false;
-      alert('帳號已存在或格式錯誤')
+      // alert('帳號已存在或格式錯誤')
     }
   },
 };

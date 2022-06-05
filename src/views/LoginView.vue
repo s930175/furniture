@@ -2,7 +2,7 @@
   <div class="body">
     <div class="login">
       <form
-        action="http://localhost/connect/doLogin.php"
+        action=""
         class="form"
         name="myForm"
         method="post"
@@ -30,7 +30,7 @@
           <i id="eyes" class="fa-solid fa-eye" @click="toggle_eye(eye)"></i>
         </div>
         <div class="btn-group">
-          <input class="btn" type="submit" value="登入">
+          <input class="btn" name="button" type="submit" value="登入" @click="login" />
           <button class="btn" @click="logout">取消</button>
         </div>
       </form>
@@ -39,12 +39,15 @@
 </template>
 
 <script>
+// import axios from 'axios'
+// axios.defaults.baseURL = 'http://localhost:8080'
 export default {
   data() {
     return {
       eye: false,
       account: "",
       password: "",
+      success: false
     };
   },
   methods: {
@@ -63,31 +66,31 @@ export default {
       //localStorage.removeItem("token");
       this.$router.push("/product");
     },
-    login(){
-
-    }
+    login() {
+      // php用axios找資料一定愛配FormData()
+      let data = new FormData();
+      // data.append('要POST出去的東西', 輸入值)
+      data.append("account", this.account);
+      data.append("password", this.password);
+      let { data: result } = this.$axios.post(
+        "http://localhost/connect/doLogin.php",
+        data)
+        console.log(result)
+      ;
+      if (result) {
+        localStorage.setItem("token", JSON.stringify(result));
+        // this.$emit('loginSuccess')
+        this.success == true;
+        this.$router.push("/");
+      } else {
+        this.success == false;
+        let event = event || window.event;
+        event.preventDefault(); //阻止導頁
+        alert("帳號或密碼錯誤");
+      }
+    },
   },
-  async created() {
-    //用來塞入BS的JS
-    // ;(function () {});
-    // php用axios找資料一定愛配FormData()
-    let data = new FormData();
-    // data.append('要POST出去的東西', 輸入值)
-    data.append("account", this.account);
-    data.append("password", this.password);
-    let { data: result } = await this.$axios.post("http://localhost/connect/doLogin.php", data);
-    if (result.status == 1) {
-      localStorage.setItem('token', JSON.stringify(result))
-      // this.$emit('loginSuccess')
-      this.$router.push('/')
-      this.success = true;
-    } else {
-      this.success = false;
-      var event = event || window.event;
-      event.preventDefault(); //阻止導頁
-      alert('帳號或密碼錯誤')
-    }
-  },
+  created() {},
 };
 </script>
 
