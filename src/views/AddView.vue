@@ -1,7 +1,7 @@
 <template>
   <div class="body">
     <div class="login">
-      <form action="http://localhost/connect/doSignup.php" class="form" name="myForm" method="post">
+      <form class="form" name="myForm" method="post" target="hidefrime">
         <h2>加入會員</h2>
         <div class="d-flex">
           <div class="add">
@@ -49,10 +49,17 @@
           <p>訂閱電子報</p>
         </div>
         <div class="btn-group">
-          <input class="btn" type="submit" @click="login" value="加入" />
+          <input
+            class="btn"
+            name="button"
+            type="submit"
+            @click="login"
+            value="加入"
+          />
           <button class="btn" @click="logout">取消</button>
         </div>
       </form>
+      <iframe name="hidefrime" class="d-none"></iframe>
     </div>
   </div>
   <!-- <div>
@@ -87,7 +94,7 @@ export default {
       //localStorage.removeItem("token");
       this.$router.push("/product");
     },
-    login() {
+    async login() {
       //驗證帳號
       let valaccount = this.account;
       let atpos = valaccount.indexOf("@");
@@ -99,25 +106,39 @@ export default {
       //輸入的數據必須包含@ 符號和點號(.)。 同時，@ 不可以是郵件地址的首字符，並且@ 之後需有至少一個點號
       if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= valaccount.length) {
         alert("請輸入有效email");
-        var event = event || window.event;
-        event.preventDefault(); //阻止導頁
+        return;
       } else if (valpassword.length < 6) {
         confirm("長度太短");
-        var event = event || window.event;
-        event.preventDefault(); //阻止導頁
+        return;
       } else if (valpassword.length > 12) {
         confirm("長度太長");
-        var event = event || window.event;
-        event.preventDefault(); //阻止導頁
+        return;
       } else if (newPpassword == false) {
         alert("密碼格式不符(需6~12英數字混合)");
-        var event = event || window.event;
-        event.preventDefault(); //阻止導頁
+        return;
       } else {
-        // localStorage.setItem("token", "ImLogin");
-        alert(`歡迎${userName}加入!!!`);
-        localStorage.setItem("token", valaccount);
+        // console.log('hey')
+        alert(`歡迎${this.userName}加入!!!`);
         this.$router.push("/login");
+      }
+      // php用axios找資料一定愛配formData()
+      let data = new FormData();
+      // data.append('要POST出去的東西', 輸入值)
+      data.append("account", this.account);
+      data.append("password", this.password);
+      data.append("userName", this.userName);
+      let { data: result } = await this.$axios.post(
+        "http://localhost/connect/doSignup.php",
+        data
+      );
+      console.log(result);
+      if (result.status == 1) {
+        this.success == true;
+        // alert(`歡迎${userName}加入!!!`);
+        this.$router.push("/login");
+      } else {
+        this.success == false;
+        // alert('帳號已存在或格式錯誤')
       }
     },
   },
@@ -133,26 +154,6 @@ export default {
     // );
     // console.log(res)
     // console.log('nmsl')
-
-    // php用axios找資料一定愛配formData()
-    let data = new FormData();
-    // data.append('要POST出去的東西', 輸入值)
-    data.append("account", this.account);
-    data.append("password", this.password);
-    data.append("userName", this.userName);
-    let { data: result } = await this.$axios.post(
-      "http://localhost/connect/doSignup.php",
-      data
-    );
-    if (result.status == 1) {
-      this.success == true;
-      alert(`歡迎${userName}加入!!!`);
-      localStorage.setItem("token", valaccount);
-      this.$router.push("/login");
-    } else {
-      this.success == false;
-      // alert('帳號已存在或格式錯誤')
-    }
   },
 };
 </script>
