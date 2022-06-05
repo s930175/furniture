@@ -2,28 +2,27 @@
   <div class="body">
     <div class="login">
       <form
-        action=""
+        action="http://localhost/connect/doLogin.php"
         class="form"
         name="myForm"
         method="post"
-        @submit.prevent="login"
       >
         <h2>會員登入</h2>
         <div class="group">
-          <label for="user-id">帳號</label>
+          <label for="account">帳號</label>
           <input
             type="text"
-            name="email"
+            name="account"
             id="user-id"
             placeholder="email"
             v-model="account"
           />
         </div>
         <div class="group">
-          <label for="user-password">密碼</label>
+          <label for="password">密碼</label>
           <input
             :type="eye ? 'text' : 'password'"
-            name="user-password"
+            name="password"
             id="user-password"
             placeholder="6~12英數字"
             v-model="password"
@@ -31,7 +30,7 @@
           <i id="eyes" class="fa-solid fa-eye" @click="toggle_eye(eye)"></i>
         </div>
         <div class="btn-group">
-          <button class="btn">登入</button>
+          <input class="btn" type="submit" value="登入">
           <button class="btn" @click="logout">取消</button>
         </div>
       </form>
@@ -64,35 +63,14 @@ export default {
       //localStorage.removeItem("token");
       this.$router.push("/product");
     },
-    login() {
-      //驗證帳號
-      let valaccount = this.account;
-      let atpos = valaccount.indexOf("@");
-      let dotpos = valaccount.lastIndexOf(".");
-      //驗證密碼
-      let valpassword = this.password;
-      let reg = /\d[a-zA-Z]{1}/;
-      let newPpassword = reg.test(valpassword);
-      //輸入的數據必須包含@ 符號和點號(.)。 同時，@ 不可以是郵件地址的首字符，並且@ 之後需有至少一個點號
-      if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= valaccount.length) {
-        alert("請輸入有效email");
-      } else if (valpassword.length < 6) {
-        confirm("長度太短");
-      } else if (valpassword.length > 12) {
-        confirm("長度太長");
-      } else if (newPpassword == false) {
-        alert("密碼格式不符(需6~12英數字混合)");
-      } else {
-        // localStorage.setItem("token", "ImLogin");
-        alert(`Hi~${valaccount}`);
-        // this.$router.push("/");
-      }
-    },
+    login(){
+
+    }
   },
   async created() {
     //用來塞入BS的JS
-    (function () {});
-    // php用axios找資料一定愛配formData()
+    // ;(function () {});
+    // php用axios找資料一定愛配FormData()
     let data = new FormData();
     // data.append('要POST出去的東西', 輸入值)
     data.append("account", this.account);
@@ -100,11 +78,13 @@ export default {
     let { data: result } = await this.$axios.post("http://localhost/connect/doLogin.php", data);
     if (result.status == 1) {
       localStorage.setItem('token', JSON.stringify(result))
-      this.$emit('loginSuccess')
+      // this.$emit('loginSuccess')
       this.$router.push('/')
       this.success = true;
     } else {
       this.success = false;
+      var event = event || window.event;
+      event.preventDefault(); //阻止導頁
       alert('帳號或密碼錯誤')
     }
   },
@@ -175,7 +155,9 @@ export default {
   border: none;
   background-color: rgb(153, 153, 220);
   width: 190px;
+  height: 50px;
   padding: 10px 0;
+  line-height: 28px;
 }
 
 .form .btn + .btn {

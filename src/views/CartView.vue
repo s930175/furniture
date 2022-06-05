@@ -12,7 +12,7 @@
       <li v-for="shop in addcartList" :key="shop.id">
       <strong>商品名:</strong>{{shop.name}}      
       <strong>價格:</strong>{{shop.price}}       
-      <strong>數量:</strong>{{shop.count}}  <i @click="removed" class="fa-solid fa-xmark"></i></li>
+      <strong>數量:</strong>{{shop.count}}  <i @click="removed" class="fa-solid fa-xmark d-none"></i></li>
     </ul>
   </div>
   <button class="order-btn" @click="clearCart">清除</button>

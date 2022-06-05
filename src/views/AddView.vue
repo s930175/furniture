@@ -1,17 +1,17 @@
 <template>
   <div class="body">
     <div class="login">
-      <form
-        action=""
-        class="form"
-        name="myForm"
-        method="post"
-      >
+      <form action="http://localhost/connect/doSignup.php" class="form" name="myForm" method="post">
         <h2>加入會員</h2>
         <div class="d-flex">
           <div class="add">
-            <label for="user-name">會員名稱</label>
-            <input type="text" id="user-name" v-model="userName" />
+            <label for="userName">會員名稱</label>
+            <input
+              type="text"
+              id="user-name"
+              v-model="userName"
+              name="userName"
+            />
           </div>
           <div class="add2">
             <br /><br />
@@ -24,20 +24,20 @@
           </div>
         </div>
         <div class="group">
-          <label for="user-id">帳號</label>
+          <label for="account">帳號</label>
           <input
             type="text"
-            name="email"
+            name="account"
             id="user-id"
             placeholder="email"
             v-model="account"
           />
         </div>
         <div class="group">
-          <label for="user-password">密碼</label>
+          <label for="password">密碼</label>
           <input
             :type="eye ? 'text' : 'password'"
-            name="user-password"
+            name="password"
             id="user-password"
             placeholder="6~12英數字"
             v-model="password"
@@ -49,12 +49,15 @@
           <p>訂閱電子報</p>
         </div>
         <div class="btn-group">
-          <button class="btn" @click="login">加入</button>
+          <input class="btn" type="submit" @click="login" value="加入" />
           <button class="btn" @click="logout">取消</button>
         </div>
       </form>
     </div>
   </div>
+  <!-- <div>
+   <h4 :class="success ? 'd-none': 'd-show'"> 尚未加入</h4>
+  </div> -->
 </template>
 
 <script>
@@ -64,8 +67,8 @@ export default {
       eye: false,
       account: "",
       password: "",
-      userName:"Mark",
-      success: false
+      userName: "Mark",
+      success: false,
     };
   },
   methods: {
@@ -96,12 +99,20 @@ export default {
       //輸入的數據必須包含@ 符號和點號(.)。 同時，@ 不可以是郵件地址的首字符，並且@ 之後需有至少一個點號
       if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= valaccount.length) {
         alert("請輸入有效email");
+        var event = event || window.event;
+        event.preventDefault(); //阻止導頁
       } else if (valpassword.length < 6) {
         confirm("長度太短");
+        var event = event || window.event;
+        event.preventDefault(); //阻止導頁
       } else if (valpassword.length > 12) {
         confirm("長度太長");
+        var event = event || window.event;
+        event.preventDefault(); //阻止導頁
       } else if (newPpassword == false) {
         alert("密碼格式不符(需6~12英數字混合)");
+        var event = event || window.event;
+        event.preventDefault(); //阻止導頁
       } else {
         // localStorage.setItem("token", "ImLogin");
         alert(`歡迎${userName}加入!!!`);
@@ -123,17 +134,24 @@ export default {
     // console.log(res)
     // console.log('nmsl')
 
-  // php用axios找資料一定愛配formData()
-    let data = new FormData()
+    // php用axios找資料一定愛配formData()
+    let data = new FormData();
     // data.append('要POST出去的東西', 輸入值)
-    data.append('account', this.account)
-    data.append('password', this.password)
-    data.append('userName', this.userName)
-    let { data: result } = await this.$axios.post('./doSignup.php', data)
-    if(result.status == 1){
-      this.success = true
-    }else{
-      this.success = false
+    data.append("account", this.account);
+    data.append("password", this.password);
+    data.append("userName", this.userName);
+    let { data: result } = await this.$axios.post(
+      "http://localhost/connect/doSignup.php",
+      data
+    );
+    if (result.status == 1) {
+      this.success == true;
+      alert(`歡迎${userName}加入!!!`);
+      localStorage.setItem("token", valaccount);
+      this.$router.push("/login");
+    } else {
+      this.success == false;
+      alert('帳號已存在或格式錯誤')
     }
   },
 };

@@ -1,17 +1,20 @@
 <template>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
   <nav>
     <h1>NavBar</h1>
     <div class="nmsl">
       <div class="main-nav">
         <router-link class="main_option" to="/">首頁</router-link>
         <router-link class="main_option" to="/product">所有產品</router-link>
-        <router-link class="main_option" to="/cart">結帳</router-link>
         <router-link class="main_option" to="/login">登入</router-link>
-        <router-link class="main_option" to="/add" >加入會員</router-link>
-
+        <router-link class="main_option" to="/add">加入會員</router-link>
+        <!-- <router-link class="main_option" to="/cart">結帳</router-link> -->
       </div>
       <label for="switch"><i class="fa-solid fa-burger"></i></label>
       <!--漢堡按鈕圖示-->
