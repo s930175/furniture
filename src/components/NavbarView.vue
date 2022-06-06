@@ -14,7 +14,7 @@
         <router-link class="main_option" to="/product">所有產品</router-link>
         <router-link class="main_option" to="/login">登入</router-link>
         <router-link class="main_option d-none" to="/login">登出</router-link>
-        <router-link class="main_option" to="/add">加入會員</router-link>
+        <!-- <router-link class="main_option" to="/add">加入會員</router-link> -->
         <!-- <router-link class="main_option" to="/cart">結帳</router-link> -->
       </div>
       <label for="switch"><i class="fa-solid fa-burger"></i></label>
