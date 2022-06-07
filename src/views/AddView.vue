@@ -1,95 +1,86 @@
 <template>
-  <div class="body">
-    <div class="login">
-      <form class="form" name="myForm" method="post" target="hidefrime">
-        <h2>加入會員</h2>
-        <div class="d-flex">
-          <div class="add">
-            <label for="userName">會員名稱</label>
-            <input
-              type="text"
-              id="user-name"
-              v-model="userName"
-              name="userName"
-            />
-          </div>
-          <div class="add2">
-            <br /><br />
-            <select>
-              <option>請選擇你的性別</option>
-              <option>男</option>
-              <option>女</option>
-              <option>其他</option>
-            </select>
-          </div>
+  <div class="container">
+    <div class="form form-login">
+      <h2>SIGNUP FORM</h2>
+      <form
+        class="input-container"
+        name="myForm"
+        method="post"
+        target="hidefrime"
+      >
+        <div class="input-box">
+          <i class="fa fa-user"></i>
+          <!-- <label for="userName">會員名稱</label> -->
+          <input
+            type="text"
+            id="user-name"
+            v-model="userName"
+            name="userName"
+            class="input"
+            placeholder="暱稱"
+          />
         </div>
-        <div class="group">
-          <label for="account">帳號</label>
+        <div class="input-box">
+          <i class="fa fa-solid fa-envelope"></i>
+          <!-- <label for="account">帳號</label> -->
           <input
             type="text"
             name="account"
             id="user-id"
             placeholder="email"
             v-model="account"
+            class="input"
           />
         </div>
-        <div class="group">
-          <label for="password">密碼</label>
+        <div class="input-box">
+          <!-- <label for="password">密碼</label> -->
+          <i class="fa fa-solid fa-lock"></i>
           <input
-            :type="eye ? 'text' : 'password'"
+            type="password"
             name="password"
             id="user-password"
             placeholder="6~12英數字"
             v-model="password"
+            class="input"
           />
-          <i id="eyes" class="fa-solid fa-eye" @click="toggle_eye(eye)"></i>
         </div>
-        <div class="checkbox">
-          <input type="checkbox" />
-          <p>訂閱電子報</p>
-        </div>
-        <div class="btn-group">
+        <div class="input-box">
+          <!-- <label for="password">密碼</label> -->
+          <i class="fa fa-solid fa-lock"></i>
           <input
-            class="btn"
-            name="button"
-            type="submit"
-            @click="login"
-            value="加入"
+            type="password"
+            id="user-password"
+            placeholder="再次確認密碼"
+            class="input"
+            v-model="passsword"
           />
-          <button class="btn" @click="logout">取消</button>
         </div>
+        <input
+          class="submit"
+          name="button"
+          type="submit"
+          @click="login"
+          value="SIGNUP"
+        />
+        <button class="submit i" @click="logout">CANCEL</button>
       </form>
       <iframe name="hidefrime" class="d-none"></iframe>
     </div>
   </div>
-  <!-- <div>
-   <h4 :class="success ? 'd-none': 'd-show'"> 尚未加入</h4>
-  </div> -->
 </template>
 
 <script>
 export default {
   data() {
     return {
-      eye: false,
       account: "",
       password: "",
       userName: "Mark",
       success: false,
+      passsword:""
     };
   },
   methods: {
-    toggle_eye(eye) {
-      this.eye = !this.eye;
-
-      if (this.eye == true) {
-        $("#eyes").removeClass("fa-eye");
-        $("#eyes").addClass("fa-eye-slash");
-      } else {
-        $("#eyes").removeClass("fa-eye-slash");
-        $("#eyes").addClass("fa-eye");
-      }
-    },
     logout() {
       //localStorage.removeItem("token");
       this.$router.push("/product");
@@ -116,12 +107,17 @@ export default {
       } else if (newPpassword == false) {
         alert("密碼格式不符(需6~12英數字混合)");
         return;
-      } else {
+      }else if(this.password != this.passsword){
+        alert("請再次檢查密碼")
+        return;
+      } 
+      else {
         let data = new FormData();
         // data.append('要POST出去的東西', 輸入值)
         data.append("account", this.account);
         data.append("password", this.password);
         data.append("userName", this.userName);
+        // 用doSignup.php去遍歷資料庫，找有無重複帳號
         let { data: result } = await this.$axios.post(
           "http://localhost/connect/doSignup.php",
           data
@@ -155,95 +151,154 @@ export default {
 </script>
 
 <style scoped>
-.body {
+* {
   margin: 0;
   padding: 0;
-  list-style: none;
-  height: 95vh;
-  display: flex;
-  background: url("https://picsum.photos/1440/1440?random1") no-repeat center
-    center / cover;
-  justify-content: center;
-  align-items: center;
+  box-sizing: border-box;
 }
-
-.login {
-  width: 600px;
-  height: 450px;
-  background-color: rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  border: 5px solid #fff;
-  box-shadow: 0 0 50px #000;
-  backdrop-filter: blur(3px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.form {
+body {
+  background: beige;
   font-family: Arial, Helvetica, sans-serif;
-  width: 400px;
-  color: #fff;
+  width: 100%;
+  height: 100%;
 }
-.add {
-  padding: 10px;
+.container {
+  position: relative;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 360px;
+  height: 500px;
+  /* box-shadow: 0 0 30px 0 #000; */
+  perspective: 1000px;
+  background: transparent;
 }
-.add2 {
-  padding: 0 0 0 10px;
-}
-select {
-  width: 120px;
-  height: 30px;
-  border: 2px solid #aaa;
-  border-radius: 6px;
+.form {
+  margin-top: 10px;
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: beige;
+  transform-style: preserve-3d;
+  border: 1px solid rgb(184, 183, 183);
+  box-shadow: 0 0 30px 0 rgb(184, 183, 183);
 }
 .form h2 {
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #fff;
+  line-height: 60px;
+  text-align: center;
+  background-color: #ffd167;
+  font-size: 28px;
+  color: #00362e;
 }
-
-.form .group {
-  margin-bottom: 5px;
+.form .input-container {
+  padding: 10px 1rem;
 }
-
-.form h2 label {
-  line-height: 2;
+.form .input-box {
+  position: relative;
+  margin: 15px 0;
 }
-
-.form input {
+.form .input-box .fa {
+  position: absolute;
+  left: 5px;
+  font-size: 26px;
+  line-height: 40px;
+  color: #ffd167;
+}
+.form .input-box .input {
   width: 100%;
-  border: 1px solid #aaa;
-  line-height: 3;
-  border-radius: 5px;
-}
-.checkbox {
-  display: flex;
-}
-.checkbox p {
-  width: 100px;
-}
-.checkbox input {
-  width: 15px;
-  margin-top: 20px;
-}
-
-.form .btn-group {
-  margin-top: 5px;
-  margin-bottom: 10px;
-  font-size: 0;
-}
-
-.form .btn {
-  font-size: 20px;
-  border-radius: 5px;
+  height: 40px;
+  padding: 5px 10px 5px 50px;
+  font-size: 16px;
   border: none;
-  background-color: rgb(153, 153, 220);
-  width: 190px;
-  padding: 10px 0;
+  background-color: transparent;
+  border-bottom: 1px solid #ffd167;
+}
+.form .submit {
+  width: 100%;
+  padding: 8px 1rem;
+  font-size: 16px;
+  border: none;
+  background-color: #ffd167;
+  color: #00362e;
+  margin-top: 20px;
+  cursor: pointer;
+}
+.form .submit.i {
+  border: 2px solid #ffd167;
+  color: #ffd167;
+  background: transparent;
+}
+.add {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+.add a {
+  text-decoration: none;
+  color: #ffd167;
+  border: 1px solid #ffcc00;
+  border-radius: 5px;
+  padding: 2px;
+  margin-left: 10px;
+}
+.form p {
+  text-align: center;
+  color: #ffd167;
+}
+.form .social-btn {
+  margin-top: 20px;
+  text-align: center;
+}
+.form .social-btn i {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  text-align: center;
+  line-height: calc(40px - 4px);
+  border: 2px solid #ffd167;
+  color: #ffd167;
+  cursor: pointer;
 }
 
-.form .btn + .btn {
-  margin-left: 20px;
+/*  */
+.form-login {
+  z-index: 3;
+  transition: z-index 1s step-end;
+}
+.form-signup {
+  z-index: 2;
+  transition: z-index 1s step-end;
+}
+.form-login.hide {
+  animation: goBackRight 2s ease-in-out;
+  z-index: 1;
+}
+.form-signup.hide {
+  animation: goBackLeft 2s ease-in-out;
+  z-index: 1;
+}
+@keyframes goBackRight {
+  0% {
+    transform: translateX(0px) rotateY(0deg);
+  }
+  50% {
+    transform: translateX(280px) rotateY(-180deg);
+  }
+  100% {
+    transform: translateX(0px) rotateY(0deg);
+  }
+}
+@keyframes goBackLeft {
+  0% {
+    transform: translateX(0px) rotateY(0deg);
+  }
+  50% {
+    transform: translateX(-280px) rotateY(180deg);
+  }
+  100% {
+    transform: translateX(0px) rotateY(0deg);
+  }
 }
 </style>

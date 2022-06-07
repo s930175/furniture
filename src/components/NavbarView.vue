@@ -7,13 +7,13 @@
     referrerpolicy="no-referrer"
   />
   <nav>
-    <h1>NavBar</h1>
     <div class="nmsl">
       <div class="main-nav">
+        <div class="mask">NMSL</div>
         <router-link class="main_option" to="/">首頁</router-link>
         <router-link class="main_option" to="/product">所有產品</router-link>
-        <router-link class="main_option" to="/login">登入</router-link>
-        <router-link class="main_option d-none" to="/login">登出</router-link>
+        <router-link class="main_option" to="/login">會員</router-link>
+        <!-- <router-link class="main_option d-none" to="/login">登出</router-link> -->
         <!-- <router-link class="main_option" to="/add">加入會員</router-link> -->
         <!-- <router-link class="main_option" to="/cart">結帳</router-link> -->
       </div>
@@ -23,11 +23,11 @@
       <!--選單開關-->
       <ul class="menu">
         <!--選單內容-->
-        <li><a href="##">Home</a></li>
-        <li><a href="##">About</a></li>
-        <li><a href="##">Graphy</a></li>
-        <li><a href="##">Intro</a></li>
-        <li><a href="##">Contact</a></li>
+        <li><a href="##">尺寸排序</a></li>
+        <li><a href="##">重量排序</a></li>
+        <li><a href="##">價格排序</a></li>
+        <li><a href="##">種類排序</a></li>
+        <li><a href="##">材質排序</a></li>
       </ul>
     </div>
   </nav>
@@ -59,12 +59,25 @@ nav {
   background: #eee;
   box-shadow: 0 3px 5px #63636388;
   height: 72px;
+  z-index: 10;
 }
 nav::after {
   content: "";
   display: block;
   clear: both;
   position: relative;
+}
+.mask {
+  display: flex;
+  margin: auto 10px;
+  font-size: 30px;
+  font-weight: 1000;
+  color: transparent;
+  background-clip: text;
+  background-image: url("../assets/photo.jpg");
+  // background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
 }
 h1 {
   float: left;
@@ -78,12 +91,13 @@ h1 {
 .main-nav {
   display: flex;
   justify-content: space-around;
-  width: 60%;
+  width: 80%;
   font-size: 16px;
 }
 .main-nav .main_option {
   line-height: 72px;
   color: #000;
+  z-index: 10;
 }
 /* 隱藏 */
 input {

@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <div class="form form-login">
+    <div
+      id="form1"
+      class="form form-login"
+      :class="userName ? 'd-none' : 'd-show'"
+    >
       <h2>LOGIN FORM</h2>
       <form
         class="input-container"
@@ -59,7 +63,11 @@
     </div>
 
     <!-- LOGOUT FORM -->
-    <div class="form form-signup">
+    <div
+      id="form2"
+      class="form form-signup"
+      :class="userName ? 'd-show' : 'd-none'"
+    >
       <h2>LOGOUT FORM</h2>
       <form class="input-container" name="myForm" method="" target="hidefrime">
         <div class="input-box">
@@ -155,9 +163,10 @@ export default {
     },
     logout() {
       localStorage.removeItem("user");
+      this.$router.push("/");
     },
     order() {
-      this.$router.push("/order");
+      this.$router.push("/cart");
     },
     add() {
       this.$router.push("/add");
@@ -176,11 +185,9 @@ export default {
       if (result) {
         // this.success == true;
         localStorage.setItem("user", JSON.stringify(result));
-        // console.log(result);
-        // console.log(this.userName)
-        // this.$emit('loginSuccess')
-        // this.$router.push("/");
-        // console.log(this.success);
+        $("#form2").removeClass("hide");
+        $("#form1").parent().parent().addClass("hide");
+        this.$router.push("/");
       } else {
         // this.success == false;
         alert("帳號或密碼錯誤");
@@ -191,22 +198,20 @@ export default {
   created() {},
 };
 // TODO:登出畫面 登入畫面修改
-$(document).ready(function () {
-  let userList = JSON.parse(localStorage.getItem("user"));
-  let objUserList = Object.keys(userList).map((key) => {
-    return {
-      [key]: userList[key],
-    };
-  });
-  console.log(objUserList);
-  if (objUserList[0].account != "") {
-    $(".submit.i").click(function () {
-      $(".form").removeClass("hide");
-      $(this).parent().parent().addClass("hide");
-      // this.$router.go(0);
-    });
-  }
-});
+// $(document).ready(function () {
+// let userList = JSON.parse(localStorage.getItem("user"));
+// let objUserList = Object.keys(userList).map((key) => {
+//   return {
+//     [key]: userList[key],
+//   };
+// });
+// console.log(objUserList);
+//   $(".submit.i").click(function () {
+//     $(".form").removeClass("hide");
+//     $(this).parent().parent().addClass("hide");
+//     // this.$router.go(0);
+//   });
+// });
 </script>
 
 <style scoped>
@@ -343,7 +348,7 @@ body {
     transform: translateX(0px) rotateY(0deg);
   }
   50% {
-    transform: translateX(280px) rotateY(-90deg);
+    transform: translateX(280px) rotateY(-180deg);
   }
   100% {
     transform: translateX(0px) rotateY(0deg);
@@ -354,7 +359,7 @@ body {
     transform: translateX(0px) rotateY(0deg);
   }
   50% {
-    transform: translateX(-280px) rotateY(90deg);
+    transform: translateX(-280px) rotateY(180deg);
   }
   100% {
     transform: translateX(0px) rotateY(0deg);

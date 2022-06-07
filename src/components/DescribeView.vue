@@ -8,6 +8,7 @@
         </p>
         <p>價錢: {{ price }}</p>
         <p class="desc">商品描述: {{ desc }}</p>
+        <button class="learn">查看更多</button>
       </div>
       <div class="btn">
         <button class="btn-count" @click="reductCount">-</button>
@@ -119,5 +120,11 @@ img {
   padding: 5px;
   border: 1px solid #aaa;
   border-radius: 10px;
+}
+.learn {
+  padding: 3px;
+  border: 1px solid #aaa;
+  border-radius: 10%;
+  margin: 5px;
 }
 </style>

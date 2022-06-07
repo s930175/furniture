@@ -1,5 +1,5 @@
 <template>
- <link
+  <link
     rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
     integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
@@ -7,16 +7,29 @@
     referrerpolicy="no-referrer"
   />
   <div>
-    <h1>你的訂單</h1>
-    <ul class="order">
-      <li v-for="shop in addcartList" :key="shop.id">
-      <strong>商品名:</strong>{{shop.name}}      
-      <strong>價格:</strong>{{shop.price}}       
-      <strong>數量:</strong>{{shop.count}}  <i @click="removed" class="fa-solid fa-xmark d-none"></i></li>
-    </ul>
+    <form action="" method="post" target="hidefrime">
+      <h1>你的訂單</h1>
+      <ul class="order">
+        <li v-for="shop in addcartList" :key="shop.id">
+          <strong>商品名:</strong>{{ shop.name }} <strong>價格:</strong
+          >{{ shop.price }} <strong>數量:</strong>{{ shop.count }}
+              <input id="p1" type="text" v-model="shop.name" name="chooseproduct"/>
+              <input id="p2" type="text" v-model="cartUser" name="cartUser"/>
+        </li>
+        <!-- <p>共計:{{ this.sum }}</p> -->
+      </ul>
+      <button class="order-btn" @click="clearCart">清除</button>
+      <input
+        class="order-btn"
+        @click="pay"
+        type="submit"
+        name="cart"
+        value="結帳"
+      />
+    </form>
+    <iframe name="hidefrime" class="d-none"></iframe>
   </div>
-  <button class="order-btn" @click="clearCart">清除</button>
-  <button class="order-btn" @click="pay">結帳</button>
+
   <ol class="list d-none">
     <li>
       <i class="fa-solid fa-1"></i>
@@ -52,56 +65,65 @@ export default {
   data() {
     return {
       cartList: [],
+      sum: 0,
+      user:"",
+      pro:[],
     };
   },
   computed: {
     addcartList() {
-      // this.cartList = JSON.parse(localStorage.getItem('ProductCount'))
-      // console.log(this.cartList)
       if (!localStorage.getItem("ProductCount")) return; //如果localstorage沒有值就return
       this.cartList = JSON.parse(localStorage.getItem("ProductCount"));
-      // this.cartList.forEach(function (item) {
-      //   if (item.count > 0) {
-      //     return `
-      // 商品名:${item.name}
-      // 售價:${item.price}
-      // 數量:${item.count}`;
-      //   }
-      // });
-      // for (let i = 0; i < 9; i++) {
-      //   if (this.cartList[i].count > 0) {
-      //     return `
-      // 商品名:${this.cartList[i].name}
-      // 售價:${this.cartList[i].price}
-      // 數量:${this.cartList[i].count}`;
-      //   }
-      // }
       const copy = [];
       for (let i = 0; i < this.cartList.length; i++) {
         if (this.cartList[i].count > 0) {
           copy.push(this.cartList[i]);
         }
       }
-      console.log(copy)
+
+      // 傳入後端的東西
+      for(let a= 0; a<copy.length; a++){
+        this.pro.push(copy[a].id) 
+        // console.log(this.pro);
+      }
+      
+      // console.log(this.pro)
       return copy;
     },
+    cartUser(){
+      if (!localStorage.getItem("user")) return; //如果localstorage沒有值就return
+      this.user = JSON.parse(localStorage.getItem("user"));
+      // console.log(this.user.account);
+      return this.user.account;
+    },
+    // sum() {
+    //   let total = 0;
+    //   this.addcartList.forEach(function (shop) {
+    //     total += shop.price * shop.count;
+    //     return total;
+    //   });
+    // },
   },
   methods: {
     clearCart() {
       this.cartList = localStorage.clear();
     },
-    pay() {
-      let sum = 0;
-      this.addcartList.forEach(function (shop) {
-        sum += shop.price * shop.count;
-        $(".list").removeClass('d-none')
-      });
-      confirm(`總共是${sum}元!!!`);
+    async pay() {
+      // this.addcartList.forEach(function (shop) {
+      //   this.sum += shop.price * shop.count;
+      //   return this.sum;
+      // });
+      $(".list").removeClass("d-none");
+      let data = new FormData();
+        // data.append('要POST出去的東西', 輸入值)
+        data.append("chooseproduct", this.pro);
+        data.append("cartUser", this.user.account);
+        console.log(this.pro)
+        console.log(this.user.account)
+        // console.log(result);
+  //  接下來寫PHP把POST的東西接住
+  // 再用PHP傳出資料庫訂單內容
     },
-    removed(){
-      this.addcartList.splice(1)
-      console.log(this.addcartList)
-    }
   },
 };
 </script>
@@ -169,16 +191,16 @@ a {
 .list li.active ~ li::before {
   background-color: #999;
 }
-.fa-xmark{
+.fa-xmark {
   padding-left: 10px;
 }
-.order{
+.order {
   padding: 30px;
 }
-.order strong{
+.order strong {
   padding-left: 50px;
 }
-.order-btn{
+.order-btn {
   border: 1px solid #aaa;
   border-radius: 30px;
   background-color: #eee;

@@ -6,7 +6,7 @@
     >
     |
     <a @click="productFilter = 'buy'" href="javascript:;"
-      ><strong>購物車</strong></a
+      ><strong>購物車({{ cartNum }})</strong></a
     >
   </div>
 
@@ -17,7 +17,10 @@
     :="item"
   >
   </Describe>
-  <router-link to="/cart" class="pay" @click="haha">結帳</router-link>
+  <form action="" method="" target="hidefrime">
+    <input class="pay" @click="haha" type="submit" name="cart" value="結帳"/>
+  </form>
+  <iframe name="hidefrime" class="d-none"></iframe>
   <!-- <PayView :count="item.count" v-for="item in showProducts" :key="item.id" :="item"></PayView> -->
   <!-- <router-link to="/cart"><a @click="productFilter='buy'" href="javascript:;">結帳</a></router-link> -->
 </template>
@@ -55,6 +58,7 @@ export default {
     },
   },
   methods: {
+    // 接受$emit的資料
     putIntoCart(info) {
       this.imgs.map(function (item) {
         if (item.id == info.id) {
@@ -63,9 +67,10 @@ export default {
       });
       // console.log(this.imgs);
     },
-    haha() {
+     haha() {
       this.cartList = JSON.stringify(this.imgs);
       localStorage.setItem("ProductCount", this.cartList);
+      this.$router.push("/cart");
     },
   },
   watch: {},
@@ -77,7 +82,9 @@ export default {
   async created() {
     //用來塞入BS的JS
     (function () {});
-    const { data: res } = await this.$axios.get("http://localhost/connect/getProduct.php");
+    const { data: res } = await this.$axios.get(
+      "http://localhost/connect/getProduct.php"
+    );
     // console.log(res);
     // console.log('nmsl')
     this.imgs = res;
@@ -90,8 +97,8 @@ img {
   width: 100%;
   border: transparent;
 }
-.link{
-  margin: 50px;
+.link {
+  margin: 20px;
 }
 a {
   text-decoration: none;
