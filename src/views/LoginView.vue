@@ -11,6 +11,7 @@
         name="myForm"
         method="post"
         target="hidefrime"
+        action="http://localhost/connect/doLogin.php"
       >
         <div class="input-box">
           <i class="fa fa-solid fa-user"></i>
@@ -181,7 +182,7 @@ export default {
         "http://localhost/connect/doLogin.php",
         data
       );
-      // console.log(result);
+      console.log(result);
       if (result) {
         // this.success == true;
         localStorage.setItem("user", JSON.stringify(result));

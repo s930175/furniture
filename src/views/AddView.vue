@@ -59,7 +59,7 @@
           class="submit"
           name="button"
           type="submit"
-          @click="login"
+          @click="singup"
           value="SIGNUP"
         />
         <button class="submit i" @click="logout">CANCEL</button>
@@ -85,7 +85,7 @@ export default {
       //localStorage.removeItem("token");
       this.$router.push("/product");
     },
-    async login() {
+    async singup() {
       //驗證帳號
       let valaccount = this.account;
       let atpos = valaccount.indexOf("@");

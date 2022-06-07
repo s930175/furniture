@@ -7,16 +7,17 @@
     referrerpolicy="no-referrer"
   />
   <div>
-    <form action="" method="post" target="hidefrime">
+    <form action="http://localhost/connect/doCart.php" method="POST" target="hidefrime">
       <h1>你的訂單</h1>
       <ul class="order">
         <li v-for="shop in addcartList" :key="shop.id">
           <strong>商品名:</strong>{{ shop.name }} <strong>價格:</strong
           >{{ shop.price }} <strong>數量:</strong>{{ shop.count }}
-              <input id="p1" type="text" v-model="shop.name" name="chooseproduct"/>
-              <input id="p2" type="text" v-model="cartUser" name="cartUser"/>
+          <input id="p1" type="text" v-model="shop.name" name="chooseproduct" />
+          <input id="p2" type="text" v-model="cartUser" name="cartUser" />
         </li>
-        <!-- <p>共計:{{ this.sum }}</p> -->
+        <p>共計:{{ summ }} 元</p>
+        <input type="text" v-model="summ" name="amount">
       </ul>
       <button class="order-btn" @click="clearCart">清除</button>
       <input
@@ -65,9 +66,8 @@ export default {
   data() {
     return {
       cartList: [],
-      sum: 0,
-      user:"",
-      pro:[],
+      user: "",
+      pro: [],
     };
   },
   computed: {
@@ -82,27 +82,28 @@ export default {
       }
 
       // 傳入後端的東西
-      for(let a= 0; a<copy.length; a++){
-        this.pro.push(copy[a].id) 
+      for (let a = 0; a < copy.length; a++) {
+        this.pro.push(copy[a].id);
         // console.log(this.pro);
       }
-      
+
       // console.log(this.pro)
       return copy;
     },
-    cartUser(){
+    cartUser() {
       if (!localStorage.getItem("user")) return; //如果localstorage沒有值就return
       this.user = JSON.parse(localStorage.getItem("user"));
       // console.log(this.user.account);
       return this.user.account;
     },
-    // sum() {
-    //   let total = 0;
-    //   this.addcartList.forEach(function (shop) {
-    //     total += shop.price * shop.count;
-    //     return total;
-    //   });
-    // },
+    summ() {
+      let sum = 0;
+      this.addcartList.forEach(function (shop) {
+        sum += shop.price * shop.count;
+      });
+      // console.log(sum);
+      return sum;
+    },
   },
   methods: {
     clearCart() {
@@ -115,14 +116,21 @@ export default {
       // });
       $(".list").removeClass("d-none");
       let data = new FormData();
-        // data.append('要POST出去的東西', 輸入值)
-        data.append("chooseproduct", this.pro);
-        data.append("cartUser", this.user.account);
-        console.log(this.pro)
-        console.log(this.user.account)
-        // console.log(result);
-  //  接下來寫PHP把POST的東西接住
-  // 再用PHP傳出資料庫訂單內容
+      // data.append('要POST出去的東西', 輸入值)
+      data.append("chooseproduct", this.pro);
+      data.append("cartUser", this.user.account);
+      data.append("amount", this.summ);
+      console.log(this.pro);
+      console.log(this.user.account);
+      console.log(this.summ);
+      // console.log(result);
+      //  接下來寫PHP把POST的東西接住
+      // 再用PHP傳出資料庫訂單內容
+      let { data: result } = await this.$axios.post(
+          "http://localhost/connect/doCart.php",
+          data
+        );
+        console.log(result);
     },
   },
 };
