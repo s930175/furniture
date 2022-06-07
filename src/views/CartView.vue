@@ -7,17 +7,33 @@
     referrerpolicy="no-referrer"
   />
   <div>
-    <form action="http://localhost/connect/doCart.php" method="POST" target="hidefrime">
+    <form
+      action="http://localhost/connect/doCart.php"
+      method="POST"
+      target="hidefrime"
+    >
       <h1>你的訂單</h1>
       <ul class="order">
         <li v-for="shop in addcartList" :key="shop.id">
           <strong>商品名:</strong>{{ shop.name }} <strong>價格:</strong
           >{{ shop.price }} <strong>數量:</strong>{{ shop.count }}
-          <input id="p1" type="text" v-model="shop.name" name="chooseproduct" />
-          <input id="p2" type="text" v-model="cartUser" name="cartUser" />
         </li>
+        <input
+          class="d-none"
+          id="p1"
+          type="text"
+          v-model="pro"
+          name="chooseproduct"
+        />
+        <input
+          class="d-none"
+          id="p2"
+          type="text"
+          v-model="cartUser"
+          name="cartUser"
+        />
         <p>共計:{{ summ }} 元</p>
-        <input type="text" v-model="summ" name="amount">
+        <input class="d-none" type="text" v-model="summ" name="amount" />
       </ul>
       <button class="order-btn" @click="clearCart">清除</button>
       <input
@@ -87,7 +103,9 @@ export default {
         // console.log(this.pro);
       }
 
-      // console.log(this.pro)
+      // console.log(this.pro);
+      this.pro = this.pro.join("、");
+      console.log(this.pro);
       return copy;
     },
     cartUser() {
@@ -126,11 +144,11 @@ export default {
       // console.log(result);
       //  接下來寫PHP把POST的東西接住
       // 再用PHP傳出資料庫訂單內容
-      let { data: result } = await this.$axios.post(
-          "http://localhost/connect/doCart.php",
-          data
-        );
-        console.log(result);
+      // let { data: result } = await this.$axios.post(
+      //   "http://localhost/connect/doCart.php",
+      //   data
+      // );
+      // console.log(result);
     },
   },
 };
