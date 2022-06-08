@@ -119,7 +119,7 @@ export default {
         data.append("userName", this.userName);
         // 用doSignup.php去遍歷資料庫，找有無重複帳號
         let { data: result } = await this.$axios.post(
-          "http://localhost/connect/doSignup.php",
+          "./doSignup.php",
           data
         );
         console.log(result);
@@ -139,7 +139,7 @@ export default {
     (function () {});
     // 以下寫法PHP看不懂axios的請求
     // const { data:res } = await this.$axios.post(
-    //   "http://localhost/connect/doSignup.php",{
+    //   "./doSignup.php",{
     //     account:this.account,
     //     password:this.password
     //   }

@@ -129,6 +129,7 @@ i {
   justify-content: space-around;
   margin-bottom: 20px;
   box-shadow: 0 3px 5px #63636388;
+  z-index: 10;
 }
 .menu li {
   text-align: center;

@@ -11,7 +11,7 @@
         name="myForm"
         method="post"
         target="hidefrime"
-        action="http://localhost/connect/doLogin.php"
+        action="./doLogin.php"
       >
         <div class="input-box">
           <i class="fa fa-solid fa-user"></i>
@@ -179,7 +179,7 @@ export default {
       data.append("account", this.account);
       data.append("password", this.password);
       let { data: result } = await this.$axios.post(
-        "http://localhost/connect/doLogin.php",
+        "./doLogin.php",
         data
       );
       console.log(result);

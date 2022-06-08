@@ -8,11 +8,11 @@
   />
   <div class="cartbody">
     <form
-      action="http://localhost/connect/doCart.php"
+      action="./doCart.php"
       method="POST"
       target="hidefrime"
     >
-      <h1 class="h1">{{ fin }}</h1>
+      <h1 class="h1">{{finish}}</h1>
       <ul class="order">
         <li v-for="shop in addcartList" :key="shop.id">
           <strong>商品名:</strong>{{ shop.name }} <strong>價格:</strong
@@ -39,11 +39,12 @@
           v-model="cartUser"
           name="cartUser"
         />
-        <p>共計:{{ summ }} 元</p>
+        <p class="p">共計:{{ summ }} 元</p>
         <input class="d-none" type="text" v-model="summ" name="amount" />
       </ul>
-      <button class="order-btn" @click="clearCart">清除</button>
+      <button :class="summ==0 ? 'd-none' : 'd-show'" class="order-btn" @click="clearCart">清除</button>
       <input
+      :class="summ==0 ? 'd-none' : 'd-show'"
         class="order-btn"
         @click="pay"
         type="submit"
@@ -55,10 +56,10 @@
   </div>
 
   <!-- ********************** -->
-  <div>
+  <!-- <div>
     <h1>已完成訂單</h1>
     <form
-      action="http://localhost/connect/doCart.php"
+      action="./doCart.php"
       method="POST"
       target="hidefrime"
     ></form>
@@ -67,7 +68,7 @@
 
       </li>
     </ul>
-  </div>
+  </div> -->
   <ol class="list d-none">
     <li>
       <i class="fa-solid fa-1"></i>
@@ -140,22 +141,26 @@ export default {
       // console.log(this.user.account);
       return this.user.account;
     },
+    finish() {
+      if (!localStorage.getItem("ProductCount")) {
+        this.fin = "無未完成訂單";
+      } else {
+        this.fin = "尚未完成的訂單";
+      }
+      return this.fin;
+    },
     summ() {
       let sum = 0;
-      this.addcartList.forEach(function (shop) {
-        sum += shop.price * shop.count;
-      });
-      // console.log(sum);
-      return sum;
+      if (localStorage.getItem("ProductCount")) {
+        this.addcartList.forEach(function (shop) {
+          sum += shop.price * shop.count;
+        });
+        // console.log(sum);
+        return sum;
+      }else{
+        return 0
+      }
     },
-    // finish() {
-    //   if(!localStorage.getItem("ProductCount")){
-    //     this.fin = "已完成的訂單"
-    //   }else{
-    //     this.fin = "尚未完成的訂單"
-    //   }
-    //   return this.fin
-    // },
   },
   methods: {
     clearCart() {
@@ -181,7 +186,7 @@ export default {
       //  接下來寫PHP把POST的東西接住
       // 再用PHP傳出資料庫訂單內容
       // let { data: result } = await this.$axios.post(
-      //   "http://localhost/connect/doCart.php",
+      //   "./doCart.php",
       //   data
       // );
       // console.log(result);
@@ -189,8 +194,8 @@ export default {
     },
   },
   async created() {
-   let data = await this.$axios.get("http://localhost/connect/doCart.php");
-    console.log(data)
+    let data = await this.$axios.get("./doCart.php");
+    console.log(data);
   },
 };
 </script>
