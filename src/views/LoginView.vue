@@ -164,6 +164,7 @@ export default {
     },
     logout() {
       localStorage.removeItem("user");
+      localStorage.removeItem("ProductCount");
       this.$router.push("/");
     },
     order() {
@@ -179,7 +180,7 @@ export default {
       data.append("account", this.account);
       data.append("password", this.password);
       let { data: result } = await this.$axios.post(
-        "http://localhost/connect/doLogin.php",
+        "./doLogin.php",
         data
       );
       console.log(result);
