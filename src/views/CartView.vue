@@ -171,6 +171,7 @@ export default {
       //   this.sum += shop.price * shop.count;
       //   return this.sum;
       // });
+      this.cartList = localStorage.removeItem("ProductCount");
       $(".list").removeClass("d-none");
       let data = new FormData();
       // data.append('要POST出去的東西', 輸入值)

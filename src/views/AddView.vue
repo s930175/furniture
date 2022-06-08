@@ -92,7 +92,7 @@ export default {
       let dotpos = valaccount.lastIndexOf(".");
       //驗證密碼
       let valpassword = this.password;
-      let reg = /\d[a-zA-Z]{1}/;
+      let reg = /[a-zA-Z]|\d/i;
       let newPpassword = reg.test(valpassword);
       //輸入的數據必須包含@ 符號和點號(.)。 同時，@ 不可以是郵件地址的首字符，並且@ 之後需有至少一個點號
       if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= valaccount.length) {

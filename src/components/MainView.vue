@@ -102,6 +102,7 @@ export default {
   padding: 50px 0;
   position: relative;
   z-index: 2;
+  background-color: beige;
 }
 .sec .item {
   width: 75%;
@@ -124,15 +125,15 @@ export default {
   position: absolute;
   width: 150px;
   height: 150px;
-  background-color: #fff;
+  background-color: beige;
   top: 0;
   left: 50%;
   transform: translateX(-30%) translateY(-60%);
   border-radius: 50%;
-  box-shadow: 178px 0 0 60px #fff, 327px 34px 0 20px #fff, 480px 9px 0 60px #fff,
-    690px 71px 0 60px #fff, 880px 0 0 89px #fff, -178px 0 0 30px #fff,
-    -320px 34px 0 20px #fff, -480px 9px 0 60px #fff, -690px 71px 0 60px #fff,
-    -1100px 0 0 89px #fff, 100px 0 0 56px rgba(0, 0, 0, 0.5),
+  box-shadow: 178px 0 0 60px beige, 327px 34px 0 20px beige, 480px 9px 0 60px beige,
+    690px 71px 0 60px beige, 880px 0 0 89px beige, -178px 0 0 30px beige,
+    -320px 34px 0 20px beige, -480px 9px 0 60px beige, -690px 71px 0 60px beige,
+    -1100px 0 0 89px beige, 100px 0 0 56px rgba(0, 0, 0, 0.5),
     298px 10px 0 40px rgba(0, 0, 0, 0.5), 540px -40px 0 50px rgba(0, 0, 0, 0.5),
     740px -30px 0 30px rgba(0, 0, 0, 0.5),
     880px -100px 0 80px rgba(0, 0, 0, 0.5), 1000px 0 0 80px rgba(0, 0, 0, 0.5),
