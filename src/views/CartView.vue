@@ -6,13 +6,13 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
-  <div>
+  <div class="cartbody">
     <form
       action="http://localhost/connect/doCart.php"
       method="POST"
       target="hidefrime"
     >
-      <h1>你的訂單</h1>
+      <h1 class="h1">{{ fin }}</h1>
       <ul class="order">
         <li v-for="shop in addcartList" :key="shop.id">
           <strong>商品名:</strong>{{ shop.name }} <strong>價格:</strong
@@ -24,6 +24,13 @@
           type="text"
           v-model="pro"
           name="chooseproduct"
+        />
+        <input
+          class="d-none"
+          id="p1"
+          type="text"
+          v-model="pro2"
+          name="chooseproduct2"
         />
         <input
           class="d-none"
@@ -47,6 +54,20 @@
     <iframe name="hidefrime" class="d-none"></iframe>
   </div>
 
+  <!-- ********************** -->
+  <div>
+    <h1>已完成訂單</h1>
+    <form
+      action="http://localhost/connect/doCart.php"
+      method="POST"
+      target="hidefrime"
+    ></form>
+    <ul>
+      <li>
+
+      </li>
+    </ul>
+  </div>
   <ol class="list d-none">
     <li>
       <i class="fa-solid fa-1"></i>
@@ -84,6 +105,8 @@ export default {
       cartList: [],
       user: "",
       pro: [],
+      pro2: [],
+      fin: "未完成訂單",
     };
   },
   computed: {
@@ -100,12 +123,15 @@ export default {
       // 傳入後端的東西
       for (let a = 0; a < copy.length; a++) {
         this.pro.push(copy[a].id);
+        this.pro2.push(copy[a].name);
         // console.log(this.pro);
       }
 
       // console.log(this.pro);
       this.pro = this.pro.join("、");
-      console.log(this.pro);
+      this.pro2 = this.pro2.join("、");
+      // console.log(this.pro);
+      // console.log(this.pro2);
       return copy;
     },
     cartUser() {
@@ -122,10 +148,18 @@ export default {
       // console.log(sum);
       return sum;
     },
+    // finish() {
+    //   if(!localStorage.getItem("ProductCount")){
+    //     this.fin = "已完成的訂單"
+    //   }else{
+    //     this.fin = "尚未完成的訂單"
+    //   }
+    //   return this.fin
+    // },
   },
   methods: {
     clearCart() {
-      this.cartList = localStorage.clear();
+      this.cartList = localStorage.removeItem("ProductCount");
     },
     async pay() {
       // this.addcartList.forEach(function (shop) {
@@ -136,11 +170,13 @@ export default {
       let data = new FormData();
       // data.append('要POST出去的東西', 輸入值)
       data.append("chooseproduct", this.pro);
+      data.append("chooseproduct2", this.pro2);
       data.append("cartUser", this.user.account);
       data.append("amount", this.summ);
-      console.log(this.pro);
-      console.log(this.user.account);
-      console.log(this.summ);
+      // console.log(this.pro);
+      // console.log(this.pro2);
+      // console.log(this.user.account);
+      // console.log(this.summ);
       // console.log(result);
       //  接下來寫PHP把POST的東西接住
       // 再用PHP傳出資料庫訂單內容
@@ -149,12 +185,23 @@ export default {
       //   data
       // );
       // console.log(result);
+      // localStorage.removeItem("ProductCount");
     },
+  },
+  async created() {
+   let data = await this.$axios.get("http://localhost/connect/doCart.php");
+    console.log(data)
   },
 };
 </script>
 
 <style scoped>
+.cartbody {
+  height: 700px;
+}
+.h1 {
+  margin-top: 50px;
+}
 img {
   width: 100%;
   border: transparent;

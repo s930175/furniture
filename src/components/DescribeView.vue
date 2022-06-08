@@ -7,8 +7,33 @@
           產品: <strong>{{ name }}</strong>
         </p>
         <p>價錢: {{ price }}</p>
-        <p class="desc">商品描述: {{ desc }}</p>
-        <button class="learn">查看更多</button>
+        <p class="desc">產品描述: {{ desc }}</p>
+        <div class="modal-overlay">
+          <!-- modal開啟後之白底方格 -->
+          <div class="modal-container">
+            <!-- modal內容 -->
+            <h3>產品:{{name}}</h3>
+            <img :src="src" alt="">
+            <p>材質:{{material}}</p>
+            <p>尺寸:{{size}}</p>
+            <p>描述:{{desc}}</p>
+            <!-- 關閉按鈕 -->
+            <button class="close-btn" @click="close">
+              <!-- 使用Font Awesome的Icon -->
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+          </div>
+        </div>
+
+
+        <!-- modal-overlay放這裡抓不到數據 -->
+        
+        <button class="learn modal-btn" type="button" @click="learnMore">
+          查看更多
+        </button>
+        
+
+
       </div>
       <div class="btn">
         <button class="btn-count" @click="reductCount">-</button>
@@ -24,7 +49,8 @@ export default {
   data() {
     return {
       count: 0,
-      cartList: [],
+      // cartList: [],
+      data:[]
     };
   },
   methods: {
@@ -67,18 +93,23 @@ export default {
         return false;
       }
       alert(`成功加入購物車，數量:${this.count}`);
-      // this.cartList=this.cartList.push(this.cartList)
-      // this.cartList =JSON.stringify([{ id: this.id, count: this.count,name:this.name,price:this.price }])
-      // localStorage.setItem("ProductCount", this.cartList);
-      // this.count = localStorage.getItem('ProductCount')
+    },
+    learnMore() {
+      $(".modal-overlay").addClass("open-modal")
+      console.log()
+    },
+    close() {
+      $(".modal-overlay").removeClass("open-modal")
     },
   },
   computed: {
     ProductCount() {
-      return localStorage.getItem("ProductCount");
+      this.data = JSON.parse(localStorage.getItem("ProductCount"));
+      console.log(this.data)
+      return this.data;
     },
   },
-  props: ["id", "price", "src", "name", "desc"],
+  props: ["id", "price", "src", "name", "desc", "category", "size", "material", "weight"],
 };
 // TODO:篩選器，搜尋結果
 </script>
@@ -126,5 +157,39 @@ img {
   border: 1px solid #aaa;
   border-radius: 10%;
   margin: 5px;
+  cursor: help;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  display: grid;
+  place-items: center;
+  transition: var(--transition);
+  visibility: hidden;
+  z-index: -10;
+}
+.modal-container{
+  width: 400px;
+  height: 600px;
+  padding: 10px;
+  box-sizing: border-box;
+  position: relative;
+  background-color: #eee;
+}
+.close-btn{
+  position: absolute;
+    left: 93%;
+    bottom: 95%;
+    font-size: 22px;
+    border: transparent;
+    cursor: grab;
+}
+.open-modal {
+  visibility: visible;
+  z-index: 10;
 }
 </style>

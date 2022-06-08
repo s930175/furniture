@@ -1,7 +1,7 @@
 <template>
   <Carouse></Carouse>
   <MainView></MainView>
-  <FooterView></FooterView>
+  <!-- <FooterView></FooterView> -->
 </template>
 
 <script>

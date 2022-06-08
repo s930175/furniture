@@ -18,7 +18,7 @@
   >
   </Describe>
   <form action="" method="" target="hidefrime">
-    <input class="pay" @click="haha" type="submit" name="cart" value="結帳"/>
+    <input class="pay" @click="haha" type="submit" name="cart" value="確定"/>
   </form>
   <iframe name="hidefrime" class="d-none"></iframe>
   <!-- <PayView :count="item.count" v-for="item in showProducts" :key="item.id" :="item"></PayView> -->
@@ -29,6 +29,7 @@
 import Describe from "../components/DescribeView.vue";
 import Carouse from "../components/CarouselView.vue";
 import PayView from "../components/PayView.vue";
+
 export default {
   components: {
     Describe,
@@ -53,9 +54,16 @@ export default {
         case "buy":
           this.cartList = JSON.stringify(this.imgs);
           localStorage.setItem("ProductCount", this.cartList);
+          // console.log(this.imgs)
           return this.imgs.filter((item) => item.count > 0);
+          
       }
     },
+    cartNum(){
+      // console.log(this.showProducts)
+      let num = this.imgs.filter((item) => item.count > 0)
+      return num.length
+    }
   },
   methods: {
     // 接受$emit的資料
