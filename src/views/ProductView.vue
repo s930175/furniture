@@ -18,7 +18,7 @@
   >
   </Describe>
   <form action="" method="" target="hidefrime">
-    <input class="pay" @click="haha" type="submit" name="cart" value="確定"/>
+    <input class="pay" @click="haha" type="submit" name="cart" value="確定" />
   </form>
   <iframe name="hidefrime" class="d-none"></iframe>
   <!-- <PayView :count="item.count" v-for="item in showProducts" :key="item.id" :="item"></PayView> -->
@@ -56,14 +56,13 @@ export default {
           localStorage.setItem("ProductCount", this.cartList);
           // console.log(this.imgs)
           return this.imgs.filter((item) => item.count > 0);
-          
       }
     },
-    cartNum(){
+    cartNum() {
       // console.log(this.showProducts)
-      let num = this.imgs.filter((item) => item.count > 0)
-      return num.length
-    }
+      let num = this.imgs.filter((item) => item.count > 0);
+      return num.length;
+    },
   },
   methods: {
     // 接受$emit的資料
@@ -75,10 +74,14 @@ export default {
       });
       // console.log(this.imgs);
     },
-     haha() {
-      this.cartList = JSON.stringify(this.imgs);
-      localStorage.setItem("ProductCount", this.cartList);
-      this.$router.push("/cart");
+    haha() {
+      if (!localStorage.getItem("user")) {
+        alert("請先登入!");
+      } else {
+        this.cartList = JSON.stringify(this.imgs);
+        localStorage.setItem("ProductCount", this.cartList);
+        this.$router.push("/cart");
+      }
     },
   },
   watch: {},
@@ -91,7 +94,7 @@ export default {
     //用來塞入BS的JS
     (function () {});
     const { data: res } = await this.$axios.get(
-      "./getProduct.php"
+      "http://localhost/connect/getProduct.php"
     );
     // console.log(res);
     // console.log('nmsl')

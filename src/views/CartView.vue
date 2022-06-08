@@ -39,7 +39,7 @@
           v-model="cartUser"
           name="cartUser"
         />
-        <p class="p">共計:{{ summ }} 元</p>
+        <p class="p" :class="summ==0 ? 'd-none' : 'd-show'">共計:{{ summ }} 元</p>
         <input class="d-none" type="text" v-model="summ" name="amount" />
       </ul>
       <button :class="summ==0 ? 'd-none' : 'd-show'" class="order-btn" @click="clearCart">清除</button>
@@ -172,6 +172,7 @@ export default {
       //   return this.sum;
       // });
       this.cartList = localStorage.removeItem("ProductCount");
+      this.fin = "無未完成訂單";
       $(".list").removeClass("d-none");
       let data = new FormData();
       // data.append('要POST出去的東西', 輸入值)

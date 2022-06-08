@@ -39,7 +39,7 @@
             type="password"
             name="password"
             id="user-password"
-            placeholder="6~12英數字"
+            placeholder="先數字在英文，合計6~12個字"
             v-model="password"
             class="input"
           />
@@ -92,7 +92,7 @@ export default {
       let dotpos = valaccount.lastIndexOf(".");
       //驗證密碼
       let valpassword = this.password;
-      let reg = /[a-zA-Z]|\d/i;
+      let reg = /\d[a-zA-Z]{1}/;
       let newPpassword = reg.test(valpassword);
       //輸入的數據必須包含@ 符號和點號(.)。 同時，@ 不可以是郵件地址的首字符，並且@ 之後需有至少一個點號
       if (atpos < 1 || dotpos < atpos + 2 || dotpos + 2 >= valaccount.length) {
@@ -105,7 +105,7 @@ export default {
         confirm("長度太長");
         return;
       } else if (newPpassword == false) {
-        alert("密碼格式不符(需6~12英數字混合)");
+        alert("密碼格式不符(需6~12英數字混合且數字在前)");
         return;
       }else if(this.password != this.passsword){
         alert("請再次檢查密碼")

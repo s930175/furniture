@@ -11,7 +11,7 @@
         name="myForm"
         method="post"
         target="hidefrime"
-        action="./doLogin.php"
+        action="http://localhost/connect/doLogin.php"
       >
         <div class="input-box">
           <i class="fa fa-solid fa-user"></i>
@@ -179,7 +179,7 @@ export default {
       data.append("account", this.account);
       data.append("password", this.password);
       let { data: result } = await this.$axios.post(
-        "./doLogin.php",
+        "http://localhost/connect/doLogin.php",
         data
       );
       console.log(result);
@@ -198,21 +198,6 @@ export default {
   },
   created() {},
 };
-// TODO:登出畫面 登入畫面修改
-// $(document).ready(function () {
-// let userList = JSON.parse(localStorage.getItem("user"));
-// let objUserList = Object.keys(userList).map((key) => {
-//   return {
-//     [key]: userList[key],
-//   };
-// });
-// console.log(objUserList);
-//   $(".submit.i").click(function () {
-//     $(".form").removeClass("hide");
-//     $(this).parent().parent().addClass("hide");
-//     // this.$router.go(0);
-//   });
-// });
 </script>
 
 <style scoped>
