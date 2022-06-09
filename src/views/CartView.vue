@@ -185,8 +185,6 @@ export default {
       // console.log(this.user.account);
       // console.log(this.summ);
       // console.log(result);
-      //  接下來寫PHP把POST的東西接住
-      // 再用PHP傳出資料庫訂單內容
       // let { data: result } = await this.$axios.post(
       //   "./doCart.php",
       //   data
