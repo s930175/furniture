@@ -8,7 +8,7 @@
   />
   <div class="cartbody">
     <form
-      action="./doCart.php"
+      action="http://localhost:8080/doCart.php"
       method="POST"
       target="hidefrime"
     >

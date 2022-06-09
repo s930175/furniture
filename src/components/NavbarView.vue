@@ -59,7 +59,7 @@ nav {
   background: #eee;
   box-shadow: 0 3px 5px #63636388;
   height: 72px;
-  z-index: 10;
+  z-index: 100;
 }
 nav::after {
   content: "";

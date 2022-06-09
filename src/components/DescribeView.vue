@@ -8,25 +8,21 @@
         </p>
         <p>價錢: {{ price }}</p>
         <p class="desc">產品描述: {{ desc }}</p>
-        <div class="modal-overlay">
-          <!-- modal開啟後之白底方格 -->
+        <!-- <div class="modal-overlay">
           <div class="modal-container">
-            <!-- modal內容 -->
             <h3>產品:{{ this.name }}</h3>
             <img :src="src" alt="" />
             <p>材質:{{ material }}</p>
             <p>尺寸:{{ size }}</p>
             <p>描述:{{ desc }}</p>
-            <!-- 關閉按鈕 -->
             <button class="close-btn" @click="close">
-              <!-- 使用Font Awesome的Icon -->
               <i class="fa-solid fa-xmark"></i>
             </button>
           </div>
         </div>
         <button class="learn modal-btn" type="button" @click="learnMore">
           查看更多
-        </button>
+        </button> -->
       </div>
       <div class="btn">
         <button class="btn-count" @click="reductCount">-</button>
@@ -38,12 +34,15 @@
   </div>
 </template>
 <script>
+import Describe2View from "./Describe2View.vue";
 export default {
+  components: {
+    Describe2View,
+  },
   data() {
     return {
       count: 0,
-      // cartList: [],
-      na: [],
+      cartList: [],
     };
   },
   methods: {
@@ -96,11 +95,7 @@ export default {
     },
   },
   computed: {
-    // ProductCount() {
-    //   this.data = JSON.parse(localStorage.getItem("ProductCount"));
-    //   console.log(this.data)
-    //   return this.data;
-    // },
+  
   },
   props: [
     "id",
@@ -113,12 +108,14 @@ export default {
     "material",
     "weight",
   ],
-  mounted() {
-    let str = [];
-    console.log(this.name)
-    str.push(this.name)
-    console.log(str)
-  },
+  // async created() {
+  //   const { data: res } = await this.$axios.get(
+  //     "http://localhost/connect/getProduct.php"
+  //   );
+  //   this.cartList = res;
+  //   // console.log(res);
+  //   // console.log('nmsl')
+  // },
 };
 // TODO:篩選器，搜尋結果
 </script>
