@@ -14,14 +14,16 @@
     </div>
   </div>
   <!-- <Describe :parentDesc="item.desc"></Describe> -->
-  <div class="btn">
+  
+  <!-- 輪播圖按鈕 < >  -->
+  <!-- <div class="btn">
     <button @click="change(now - 1)" class="btnPrev">
       <i class="fa-solid fa-angle-left"></i>
     </button>
     <button @click="change(now + 1)" class="btnNext">
       <i class="fa-solid fa-angle-right"></i>
     </button>
-  </div>
+  </div> -->
 </template>
 
 <script>

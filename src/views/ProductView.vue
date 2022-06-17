@@ -6,7 +6,7 @@
     >
     |
     <a @click="productFilter = 'buy'" href="javascript:;"
-      ><strong>購物車({{ cartNum }})</strong></a
+      ><i class="bi bi-cart3"></i><strong>購物車({{ cartNum }})</strong></a
     >
   </div>
 
@@ -110,15 +110,19 @@ img {
 }
 .link {
   margin: 20px;
+  color: rgb(68, 54, 43);
 }
 a {
   text-decoration: none;
-  color: black;
+  color: rgb(68, 54, 43);
   font-family: Arial, Helvetica, sans-serif;
 }
 .pay {
+  color: rgb(242, 233, 224);
+  background-color: rgb(68, 54, 43);
+  margin-bottom: 20px;
   padding: 10px;
-  border: 1px solid #aaa;
+  border: 1px solid rgb(68, 54, 43);
   border-radius: 5px;
 }
 </style>

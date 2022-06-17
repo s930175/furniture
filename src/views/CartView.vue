@@ -123,7 +123,7 @@ export default {
 
       // 傳入後端的東西
       for (let a = 0; a < copy.length; a++) {
-        this.pro.push(copy[a].id);
+        this.pro.push(copy[a].count);
         this.pro2.push(copy[a].name);
         // console.log(this.pro);
       }
@@ -131,7 +131,7 @@ export default {
       // console.log(this.pro);
       this.pro = this.pro.join("、");
       this.pro2 = this.pro2.join("、");
-      // console.log(this.pro);
+      console.log(this.pro);
       // console.log(this.pro2);
       return copy;
     },

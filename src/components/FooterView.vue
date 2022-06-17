@@ -3,7 +3,7 @@
         <div class="container">
             <div class="footer-item">
                 <h4>服務項目</h4>
-                <nav class="col-6">
+                <nav class="col-6 d-none d-lg-flex">
                     <a href="#"><i class="fa-solid fa-angle-right"></i>常見問題</a>
                     <a href="#"><i class="fa-solid fa-angle-right"></i>優惠活動</a>
                     <a href="#"><i class="fa-solid fa-angle-right"></i>預訂服務</a>
@@ -12,7 +12,7 @@
             </div>
             <div class="footer-item">
                 <h4>關於我們</h4>
-                <nav class="col-6">
+                <nav class="col-6 d-none d-lg-flex">
                     <a href="#"><i class="fa-solid fa-angle-right"></i>企業徵才</a>
                     <a href="#"><i class="fa-solid fa-angle-right"></i>品牌故事</a>
                     <a href="#"><i class="fa-solid fa-angle-right"></i>店家評分</a>
@@ -21,20 +21,22 @@
             </div>
             <div class="footer-item">
                 <h4>品質把關</h4>
-                <nav class="col-6">
+                <nav class="col-6 d-none d-lg-flex">
                     <a href="#"><i class="fa-solid fa-angle-right"></i>嚴格品管</a>
                     <a href="#"><i class="fa-solid fa-angle-right"></i>細心製作</a>
                     <a href="#"><i class="fa-solid fa-angle-right"></i>售後服務</a>
                     <a href="#"><i class="fa-solid fa-angle-right"></i>檢驗認證</a>
                 </nav>
             </div>
-            <div class="footer-item footer-sub">
+            <div class="footer-item footer-sub d-none d-lg-flex">
                 <h4>訂閱電子報</h4>
-                <p style="color: #000;">獲得更多好康優惠資訊</p>
-                <form action="">
-                    <input type="email" name="" placeholder="email" required>
-                    <input type="submit" value="訂閱">
-                </form>
+                <nav>
+                    <p >獲得更多好康優惠資訊</p>
+                    <form action="">
+                        <input type="email" name="" placeholder="email" required>
+                        <input type="submit" value="訂閱">
+                    </form>
+                </nav>
             </div>
         </div>
         <div class="copyright">
@@ -51,10 +53,7 @@ export default {
 <style scoped lang="less">
 .main-footer {
     padding: 50px 0 0 0;
-    background: linear-gradient(#fff,rgba(200,200,200,.5), #fff);
-    // @media screen and (min-width:768px) {
-    //     display:none;
-    // }
+     background: linear-gradient(rgb(242, 233, 224), rgba(255, 205, 166, .5), );
 }
 
 .main-footer .container {
@@ -71,27 +70,38 @@ export default {
 
 .footer-item h4 {
     font-size: 24px;
-    color: black;
-    border-bottom: 1px dotted #aaa;
-    margin-bottom: .5em;
-    padding-bottom: .5em;
+    color: rgb(68, 54, 43);
+    border-bottom: 1px dotted rgb(68, 54, 43);
+    margin-bottom: .5rem;
+    padding-bottom: .5rem;
 }
 
+
 .footer-item nav {
+    margin: auto;
     display: flex;
     flex-direction: column;
 
 }
 
 .footer-item nav a {
-    color: black;
+    color: rgb(68, 54, 43);
     line-height: 1.4;
     text-decoration: none;
     padding: 5px 0;
 }
 
 .footer-item nav a:hover {
-    color:#aaa;
+    color: rgb(68, 54, 43);
+    font-weight: bolder;
+    text-decoration: underline;
+    text-decoration-color: rgb(68, 54, 43);
+
+}
+
+.footer-item nav p{
+    color:rgb(68, 54, 43);
+    
 }
 
 .footer-sub {
@@ -118,18 +128,18 @@ export default {
 }
 
 .footer-sub input[type="submit"] {
-    color:#fff;
-    background-color: black;
+    color:rgb(242, 233, 224);
+    background-color: rgb(68, 54, 43);
     margin: 0 10px 0 0 ;
 }
 
 .copyright {
     width: 100%;
+    font-size: .5rem;
     text-align: center;
     margin-top: 10px;
     padding: 10px 0;
-    background-color: var(--main-color);
-    color: black;
+    color: rgb(68, 54, 43);
 }
 
 .main-header .main-nav2 {

@@ -1,39 +1,58 @@
 <template>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-    integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-    crossorigin="anonymous"
-    referrerpolicy="no-referrer"
-  />
-  <nav>
-    <div class="nmsl">
-      <div class="main-nav">
-        <div class="mask">NMSL</div>
-        <router-link class="main_option" to="/">首頁</router-link>
-        <router-link class="main_option" to="/product">所有產品</router-link>
-        <router-link class="main_option" to="/login">會員</router-link>
-        <!-- <router-link class="main_option d-none" to="/login">登出</router-link> -->
-        <!-- <router-link class="main_option" to="/add">加入會員</router-link> -->
-        <!-- <router-link class="main_option" to="/cart">結帳</router-link> -->
-      </div>
-      <label for="switch"><i class="fa-solid fa-burger"></i></label>
-      <!--漢堡按鈕圖示-->
-      <input type="checkbox" id="switch" />
-      <!--選單開關-->
-      <ul class="menu">
-        <!--選單內容-->
-        <li><a href="##">尺寸排序</a></li>
-        <li><a href="##">重量排序</a></li>
-        <li><a href="##">價格排序</a></li>
-        <li><a href="##">種類排序</a></li>
-        <li><a href="##">材質排序</a></li>
+ <nav class="navbar navbar-expand-lg navbar-light text-nowrap mb-1" style="background-color:rgb(242, 233, 224)">
+  <div class="container py-3">
+
+    
+      <router-link to="/" class="navbar-brand mx-auto">
+      <div class="logoMask">HA家居</div>
+      </router-link>
+    
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse fs-5" id="navbarSupportedContent">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item mx-5">
+          <router-link class="nav-link" aria-current="page" to="/">首頁</router-link>
+        </li>
+
+        <li class="nav-item mx-5">
+          <router-link class="nav-link" to="/product">所有產品</router-link>
+        </li>
+
+        <!-- 待更改 -->
+        <li class="nav-item dropdown mx-5">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            產品排序
+          </a>
+          <ul class="dropdown-menu menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item" href="#">尺寸排序</a></li>
+            <li><a class="dropdown-item" href="#">重量排序</a></li>
+            <li><a class="dropdown-item" href="#">價格排序</a></li>
+            <li><a class="dropdown-item" href="#">種類排序</a></li>
+            <li><a class="dropdown-item" href="#">材質排序</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item mx-5">
+          <router-link class="nav-link" to="/login">會員</router-link>
+        </li>
+        <li class="nav-item mx-5">
+          <router-link class="nav-link" to="/cart"><i class="bi bi-cart3"></i></router-link>
+        </li>
+
+        
       </ul>
     </div>
-  </nav>
+  </div>
+</nav>
+ 
 </template>
 
 <script>
+
 export default {
   data() {
     return {
@@ -44,125 +63,42 @@ export default {
     //用來塞入BS的JS
     (function () {});
   },
+
 };
 </script>
+
 <style scoped lang="less">
-* {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  text-decoration: none;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-nav {
-  background: #eee;
-  box-shadow: 0 3px 5px #63636388;
-  height: 72px;
-  z-index: 100;
-}
-nav::after {
-  content: "";
-  display: block;
-  clear: both;
-  position: relative;
-}
-.mask {
+// mask為logo設定
+.logoMask {
   display: flex;
   margin: auto 10px;
-  font-size: 30px;
+  font-size: 3rem;
   font-weight: 1000;
   color: transparent;
+  // background-clip: text背景被剪裁成文字圖樣
   background-clip: text;
-  background-image: url("../assets/photo.jpg");
-  // background-repeat: no-repeat;
+  background-image: url("../assets/logo-bg.jpg");
+  /* background-repeat: no-repeat; */
   background-position: center center;
   background-size: cover;
 }
-h1 {
-  float: left;
-  padding-left: 5%;
-  line-height: 72px;
-  font-size: 26px;
+.navbarColor{
+background-color:rgb(242, 233, 224);
+box-shadow:0px 0px 8px rgb(68, 54, 43);
 }
-.nmsl {
-  height: 72px;
+
+.nav-item a{
+  color:rgb(68, 54, 43)
 }
-.main-nav {
-  display: flex;
-  justify-content: space-around;
-  width: 80%;
-  font-size: 16px;
+
+.nav-item a:hover {
+  text-decoration: underline;
+  text-decoration-color: rgb(68, 54, 43);
 }
-.main-nav .main_option {
-  line-height: 72px;
-  color: #000;
-  z-index: 10;
-}
-/* 隱藏 */
-input {
-  display: none;
-}
-/* 漢堡本人 */
-label {
-  /* float: right; */
-  position: absolute;
-  top: -5%;
-  right: 0;
-  left: 90%;
-  bottom: 0;
-}
-i {
-  margin: 30px 10px 0 0;
-  font-size: 28px;
-  line-height: 92px;
-}
-/* 選單列 */
-.menu {
-  /* clear後可以把東西往下擠(文不繞圖)，將東西移動到float外的下方 */
-  clear: both;
-  background: #fff;
-  /* 高度設為0，超出高度0的隱藏 */
-  max-height: 0;
-  overflow: hidden;
-  display: flex;
-  justify-content: space-around;
-  margin-bottom: 20px;
-  box-shadow: 0 3px 5px #63636388;
-  z-index: 10;
-}
-.menu li {
-  text-align: center;
-  border-bottom: 1px solid #efefef;
-  /* width: 100px; */
-}
-.menu li a {
-  display: block;
-  padding: 10px 0;
-  font-size: 18px;
-  color: #5d5d5d;
-  transition: 0.5s;
-}
+
+
 .menu li a:hover {
-  background: #5d5d5d;
+  background:rgb(68, 54, 43) ;
   color: #fff;
-  padding: 10px;
-}
-/* 當checkbox:checked時， max-height最高高度可以讓list完全顯示 */
-input:checked ~ .menu {
-  max-height: 250px; /* 50*5 */
-}
-
-.main-nav {
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    text-decoration: none;
-    text-shadow: #aaa;
-
-    &.router-link-exact-active {
-      color: #aaa;
-    }
-  }
 }
 </style>
