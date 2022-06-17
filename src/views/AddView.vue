@@ -119,7 +119,7 @@ export default {
         data.append("userName", this.userName);
         // 用doSignup.php去遍歷資料庫，找有無重複帳號
         let { data: result } = await this.$axios.post(
-          "./doSignup.php",
+          "http://localhost/connect/doSignup.php",
           data
         );
         console.log(result);

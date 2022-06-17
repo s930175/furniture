@@ -1,5 +1,5 @@
 <template>
-  <Carouse></Carouse>
+  <!-- <Carouse></Carouse> -->
   <MainView></MainView>
   <!-- <FooterView></FooterView> -->
 </template>

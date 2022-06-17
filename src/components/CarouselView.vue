@@ -16,14 +16,14 @@
   <!-- <Describe :parentDesc="item.desc"></Describe> -->
   
   <!-- 輪播圖按鈕 < >  -->
-  <!-- <div class="btn">
+  <div class="btn">
     <button @click="change(now - 1)" class="btnPrev">
       <i class="fa-solid fa-angle-left"></i>
     </button>
     <button @click="change(now + 1)" class="btnNext">
       <i class="fa-solid fa-angle-right"></i>
     </button>
-  </div> -->
+  </div>
 </template>
 
 <script>
@@ -87,7 +87,7 @@ export default {
     //用來塞入BS的JS
     (function () {});
     const { data:res } = await this.$axios.get(
-      "http://localhost:8080/getProduct.php"
+      "http://localhost/connect/getProduct.php"
     );
     // console.log(res)
     // console.log('nmsl')

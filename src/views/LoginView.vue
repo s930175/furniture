@@ -155,7 +155,7 @@ export default {
       data.append("account", this.account);
       data.append("password", this.password);
       let { data: result } = await this.$axios.post(
-        "./doLogin.php",
+        "http://localhost/connect/doLogin.php",
         data
       );
       console.log(result);
