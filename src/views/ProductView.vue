@@ -92,7 +92,7 @@ export default {
   // },
   async created() {
     //用來塞入BS的JS
-    (function () {});
+    // (function () {});
     const { data: res } = await this.$axios.get(
       "http://localhost/connect/getProduct.php"
     );

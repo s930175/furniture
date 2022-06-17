@@ -56,18 +56,20 @@
   </div>
 
   <!-- ********************** -->
-  <!-- <div>
-    <h1>已完成訂單</h1>
-    <form
-      action="./doCart.php"
-      method="POST"
-      target="hidefrime"
-    ></form>
-    <ul>
-      <li>
-      </li>
-    </ul>
-  </div> -->
+  <div>
+    <form action="http://localhost/connect/getCart.php" method="post" target="hidefrime">
+      <input
+          class="d-none"
+          id="p2"
+          type="text"
+          v-model="cartUser"
+          name="cartUser"
+        />
+    </form>
+    <iframe name="hidefrime" class="d-none"></iframe>
+  </div>
+
+
   <ol class="list d-none">
     <li>
       <i class="fa-solid fa-1"></i>
@@ -192,10 +194,13 @@ export default {
       localStorage.removeItem("ProductCount");
     },
   },
-  // async created() {
-  //   let data = await this.$axios.get("http://localhost/connect/doCart.php");
-  //   console.log(data);
-  // },
+  async created() {
+    let data = new FormData();
+    data.append("cartUser", this.user.account);
+
+    let datas = await this.$axios.get("http://localhost/connect/getCart.php");
+    console.log(datas);
+  },
 };
 </script>
 
