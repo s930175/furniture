@@ -215,8 +215,9 @@ export default {
       let data = new FormData();
       data.append("cartUsers", this.user.account);
       console.log(this.user.account)
-      const cartDatas = await this.$axios.post(
-        "http://localhost/connect/getCart.php"
+      const {data:cartDatas} = await this.$axios.post(
+        // POST要記得加data!!!!!!!!!!!!!!
+        "http://localhost/connect/getCart.php",data
       );
       console.log(cartDatas);
     },
