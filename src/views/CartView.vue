@@ -42,7 +42,7 @@
         <p class="p" :class="summ==0 ? 'd-none' : 'd-show'">共計:{{ summ }} 元</p>
         <input class="d-none" type="text" v-model="summ" name="amount" />
       </ul>
-      <button type="button" :class="summ==0 ? 'd-none' : 'd-show'" class="order-btn" @click="clearCart">清除</button>
+      <button :class="summ==0 ? 'd-none' : 'd-show'" class="order-btn" @click="clearCart">清除</button>
       <input
       :class="summ==0 ? 'd-none' : 'd-show'"
         class="order-btn"
@@ -65,7 +65,6 @@
     ></form>
     <ul>
       <li>
-
       </li>
     </ul>
   </div> -->
@@ -120,14 +119,12 @@ export default {
           copy.push(this.cartList[i]);
         }
       }
-
       // 傳入後端的東西
       for (let a = 0; a < copy.length; a++) {
         this.pro.push(copy[a].count);
         this.pro2.push(copy[a].name);
         // console.log(this.pro);
       }
-
       // console.log(this.pro);
       this.pro = this.pro.join("、");
       this.pro2 = this.pro2.join("、");
@@ -193,10 +190,10 @@ export default {
       // localStorage.removeItem("ProductCount");
     },
   },
-  // async created() {
-  //   let data = await this.$axios.get("http://localhost/connect/doCart.php");
-  //   // console.log(data);
-  // },
+  async created() {
+    let data = await this.$axios.get("http://localhost/connect/doCart.php");
+    console.log(data);
+  },
 };
 </script>
 
@@ -216,7 +213,6 @@ a {
   color: black;
   font-family: Arial, Helvetica, sans-serif;
 }
-
 * {
   margin: 0;
   padding: 0;
@@ -286,4 +282,3 @@ a {
   margin-top: 400px;
 }
 </style>
-
