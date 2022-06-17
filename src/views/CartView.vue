@@ -12,7 +12,7 @@
       method="POST"
       target="hidefrime"
     >
-      <h1 class="h1">{{finish}}</h1>
+      <h1 class="h1">{{ finish }}</h1>
       <ul class="order">
         <li v-for="shop in addcartList" :key="shop.id">
           <strong>商品名:</strong>{{ shop.name }} <strong>價格:</strong
@@ -39,12 +39,20 @@
           v-model="cartUser"
           name="cartUser"
         />
-        <p class="p" :class="summ==0 ? 'd-none' : 'd-show'">共計:{{ summ }} 元</p>
+        <p class="p" :class="summ == 0 ? 'd-none' : 'd-show'">
+          共計:{{ summ }} 元
+        </p>
         <input class="d-none" type="text" v-model="why" name="amount" />
       </ul>
-      <button :class="summ==0 ? 'd-none' : 'd-show'" class="order-btn" @click="clearCart">清除</button>
+      <button
+        :class="summ == 0 ? 'd-none' : 'd-show'"
+        class="order-btn"
+        @click="clearCart"
+      >
+        清除
+      </button>
       <input
-      :class="summ==0 ? 'd-none' : 'd-show'"
+        :class="summ == 0 ? 'd-none' : 'd-show'"
         class="order-btn"
         @click="pay"
         type="submit"
@@ -57,18 +65,27 @@
 
   <!-- ********************** -->
   <div>
-    <form action="http://localhost/connect/getCart.php" method="post" target="hidefrime">
+    <form
+      action="http://localhost/connect/getCart.php"
+      method="post"
+      target="hidefrime"
+    >
       <input
-          class="d-none"
-          id="p2"
-          type="text"
-          v-model="cartUser"
-          name="cartUser"
-        />
+        class="d-none"
+        id="p2"
+        type="text"
+        v-model="cartUser"
+        name="cartUsers"
+      />
+      <input
+        type="submit"
+        :class="summ == 0 ? 'd-show' : 'd-none'"
+        value="查看我的訂單"
+        @click="payCart"
+      />
     </form>
     <iframe name="hidefrime" class="d-none"></iframe>
   </div>
-
 
   <ol class="list d-none">
     <li>
@@ -109,7 +126,8 @@ export default {
       pro: [],
       pro2: [],
       fin: "未完成訂單",
-      why:0
+      why: 0,
+      payCarts: [],
     };
   },
   computed: {
@@ -156,11 +174,11 @@ export default {
           sum += shop.price * shop.count;
         });
         // console.log(sum);
-        this.why = sum
+        this.why = sum;
         // console.log(this.why)
         return sum;
-      }else{
-        return 0
+      } else {
+        return 0;
       }
     },
   },
@@ -168,7 +186,7 @@ export default {
     clearCart() {
       this.cartList = localStorage.removeItem("ProductCount");
     },
-    async pay() {
+    pay() {
       // this.addcartList.forEach(function (shop) {
       //   this.sum += shop.price * shop.count;
       //   return this.sum;
@@ -182,10 +200,10 @@ export default {
       data.append("chooseproduct2", this.pro2);
       data.append("cartUser", this.user.account);
       data.append("amount", this.why);
-      console.log(this.pro);
-      console.log(this.pro2);
-      console.log(this.user.account);
-      console.log(this.why);
+      // console.log(this.pro);
+      // console.log(this.pro2);
+      // console.log(this.user.account);
+      // console.log(this.why);
       // let { data: result } = await this.$axios.post(
       //   "./doCart.php",
       //   data
@@ -193,14 +211,20 @@ export default {
       // console.log(result);
       localStorage.removeItem("ProductCount");
     },
+    async payCart() {
+      let data = new FormData();
+      data.append("cartUsers", this.user.account);
+      console.log(this.user.account)
+      const cartDatas = await this.$axios.post(
+        "http://localhost/connect/getCart.php"
+      );
+      console.log(cartDatas);
+    },
   },
-  async created() {
-    let data = new FormData();
-    data.append("cartUser", this.user.account);
-
-    let datas = await this.$axios.get("http://localhost/connect/getCart.php");
-    console.log(datas);
-  },
+  // async created() {
+  //   let data = new FormData();
+  //   data.append("cartUser", this.user.account);
+  // },
 };
 </script>
 
