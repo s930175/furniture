@@ -6,6 +6,47 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
+   <div :class="summ == 0 ? 'd-show' : 'd-none'">
+    <div class="payCart-row">
+      <div class="payCart-container">
+        <tr>
+          <td>訂單編號</td>
+          <td>訂購人</td>
+          <td>訂購產品</td>
+          <td>總額</td>
+        </tr>
+        <hr>
+        <tr v-for="payCart in payCarts" :key="payCart.id">
+          <td>{{payCart["id"]}}</td>
+          <td>{{payCart["user_name"]}}</td>
+          <td>{{payCart["product_name"]}}</td>
+          <td>{{payCart["amount"]}}</td>
+        </tr>
+      </div>
+    </div>
+  </div>
+  <div>
+    <form
+      action="http://localhost/connect/getCart.php"
+      method="post"
+      target="hidefrime"
+    >
+      <input
+        class="d-none"
+        id="p2"
+        type="text"
+        v-model="cartUser"
+        name="cartUsers"
+      />
+      <input
+        type="submit"
+        :class="summ == 0 ? 'd-show' : 'd-none'"
+        value="查看我的訂單"
+        @click="payCart"
+      />
+    </form>
+    <iframe name="hidefrime" class="d-none"></iframe>
+  </div>
   <div class="cartbody">
     <form
       action="http://localhost/connect/doCart.php"
@@ -58,30 +99,6 @@
         type="submit"
         name="cart"
         value="結帳"
-      />
-    </form>
-    <iframe name="hidefrime" class="d-none"></iframe>
-  </div>
-
-  <!-- ********************** -->
-  <div>
-    <form
-      action="http://localhost/connect/getCart.php"
-      method="post"
-      target="hidefrime"
-    >
-      <input
-        class="d-none"
-        id="p2"
-        type="text"
-        v-model="cartUser"
-        name="cartUsers"
-      />
-      <input
-        type="submit"
-        :class="summ == 0 ? 'd-show' : 'd-none'"
-        value="查看我的訂單"
-        @click="payCart"
       />
     </form>
     <iframe name="hidefrime" class="d-none"></iframe>
@@ -214,12 +231,15 @@ export default {
     async payCart() {
       let data = new FormData();
       data.append("cartUsers", this.user.account);
-      console.log(this.user.account)
-      const {data:cartDatas} = await this.$axios.post(
+      // console.log(this.user.account)
+      const { data: cartDatas } = await this.$axios.post(
         // POST要記得加data!!!!!!!!!!!!!!
-        "http://localhost/connect/getCart.php",data
+        "http://localhost/connect/getCart.php",
+        data
       );
-      console.log(cartDatas);
+      // console.log(cartDatas);
+      this.payCarts = cartDatas;
+      console.log(this.payCarts);
     },
   },
   // async created() {
@@ -312,5 +332,16 @@ a {
   background-color: #eee;
   padding: 10px;
   margin-top: 400px;
+}
+.payCart-row{
+  display: flex;
+  justify-content: center;
+}
+.payCart-container{
+  padding: 10px;
+}
+.payCart-container td{
+  width: 200px;
+  padding: 0;
 }
 </style>
