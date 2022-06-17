@@ -18,7 +18,7 @@
   >
   </Describe>
   <form action="" method="" target="hidefrime">
-    <input class="pay" @click="haha" type="submit" name="cart" value="確定" />
+    <input class="pay" @click="haha" type="button" name="cart" value="確定" />
   </form>
   <iframe name="hidefrime" class="d-none"></iframe>
   <!-- <PayView :count="item.count" v-for="item in showProducts" :key="item.id" :="item"></PayView> -->
