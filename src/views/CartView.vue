@@ -40,7 +40,7 @@
           name="cartUser"
         />
         <p class="p" :class="summ==0 ? 'd-none' : 'd-show'">共計:{{ summ }} 元</p>
-        <input class="d-none" type="text" v-model="summ" name="amount" />
+        <input class="d-none" type="text" v-model="why" name="amount" />
       </ul>
       <button :class="summ==0 ? 'd-none' : 'd-show'" class="order-btn" @click="clearCart">清除</button>
       <input
@@ -94,11 +94,11 @@
 
 <script>
 import Describe from "../components/DescribeView.vue";
-import PayView from "@/components/PayView.vue";
+// import PayView from "@/components/PayView.vue";
 export default {
   components: {
     Describe,
-    PayView,
+    // PayView,
   },
   data() {
     return {
@@ -107,6 +107,7 @@ export default {
       pro: [],
       pro2: [],
       fin: "未完成訂單",
+      why:0
     };
   },
   computed: {
@@ -153,6 +154,8 @@ export default {
           sum += shop.price * shop.count;
         });
         // console.log(sum);
+        this.why = sum
+        // console.log(this.why)
         return sum;
       }else{
         return 0
@@ -176,24 +179,23 @@ export default {
       data.append("chooseproduct", this.pro);
       data.append("chooseproduct2", this.pro2);
       data.append("cartUser", this.user.account);
-      data.append("amount", this.summ);
-      // console.log(this.pro);
-      // console.log(this.pro2);
-      // console.log(this.user.account);
-      // console.log(this.summ);
-      // console.log(result);
+      data.append("amount", this.why);
+      console.log(this.pro);
+      console.log(this.pro2);
+      console.log(this.user.account);
+      console.log(this.why);
       // let { data: result } = await this.$axios.post(
       //   "./doCart.php",
       //   data
       // );
       // console.log(result);
-      // localStorage.removeItem("ProductCount");
+      localStorage.removeItem("ProductCount");
     },
   },
-  async created() {
-    let data = await this.$axios.get("http://localhost/connect/doCart.php");
-    console.log(data);
-  },
+  // async created() {
+  //   let data = await this.$axios.get("http://localhost/connect/doCart.php");
+  //   console.log(data);
+  // },
 };
 </script>
 
