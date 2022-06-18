@@ -196,7 +196,7 @@ export default {
       this.robotCheck = true; // 將布林值轉換成true
       let data = new FormData();
       data.append("reacptchaToken", pass); //將資料傳到後端
-      let { data: result } = await axios.post("http://localhost/connect/reacptchaToken.php", data); //你的PHP路徑
+      let { data: result } = await this.$axios.post("http://localhost/connect/reacptchaToken.php", data); //你的PHP路徑
       if (result.status == true) {
         alert("驗證成功");
       } else {
