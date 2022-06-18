@@ -87,7 +87,7 @@ export default {
     //用來塞入BS的JS
     (function () {});
     const { data:res } = await this.$axios.get(
-      "http://localhost/connect/getProduct.php"
+      "./getProduct.php"
     );
     // console.log(res)
     // console.log('nmsl')

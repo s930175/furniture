@@ -13,7 +13,7 @@
             name="myForm"
             method="post"
             target="hidefrime"
-            action="http://localhost/connect/doLogin.php"
+            action="./doLogin.php"
           >
             <div class="input-box">
               <i class="fa fa-solid fa-user"></i>
@@ -196,7 +196,7 @@ export default {
       this.robotCheck = true; // 將布林值轉換成true
       let data = new FormData();
       data.append("reacptchaToken", pass); //將資料傳到後端
-      let { data: result } = await this.$axios.post("http://localhost/connect/reacptchaToken.php", data); //你的PHP路徑
+      let { data: result } = await this.$axios.post("./reacptchaToken.php", data); //你的PHP路徑
       if (result.status == true) {
         alert("驗證成功");
       } else {
@@ -227,7 +227,7 @@ export default {
       data.append("account", this.account);
       data.append("password", this.password);
       let { data: result } = await this.$axios.post(
-        "http://localhost/connect/doLogin.php",
+        "./doLogin.php",
         data
       );
       console.log(result);

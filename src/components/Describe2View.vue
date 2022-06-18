@@ -31,7 +31,7 @@ export default {
   },
   async created() {
     const { data: res } = await this.$axios.get(
-      "http://localhost/connect/getProduct.php"
+      "./getProduct.php"
     );
     this.list = res;
     console.log(this.list);

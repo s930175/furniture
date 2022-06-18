@@ -27,7 +27,7 @@
   </div>
   <div>
     <form
-      action="http://localhost/connect/getCart.php"
+      action="./getCart.php"
       method="post"
       target="hidefrime"
     >
@@ -50,7 +50,7 @@
   </div>
   <div class="cartbody">
     <form
-      action="http://localhost/connect/doCart.php"
+      action="./doCart.php"
       method="POST"
       target="hidefrime"
     >
@@ -236,7 +236,7 @@ export default {
       // console.log(this.user.account)
       const { data: cartDatas } = await this.$axios.post(
         // POST要記得加data!!!!!!!!!!!!!!
-        "http://localhost/connect/getCart.php",
+        "./getCart.php",
         data
       );
       // console.log(cartDatas);
