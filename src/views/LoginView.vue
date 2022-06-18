@@ -1,89 +1,141 @@
 <template>
-<div class="container-fruid my-5">
-  <div class="col-lg-8 col-md-12 mx-auto d-flex flex-nowrap">
-    <div class="col-lg-6 col-md-10 col-sm-12 mx-auto">
-      <div id="form1" class="form form-login " :class="userName ? 'd-none' : 'd-show'">
-        <h2 class="text-nowrap">LOGIN FORM</h2>
-        <form class="input-container" name="myForm" method="post" target="hidefrime"
-          action="http://localhost/connect/doLogin.php">
-          <div class="input-box">
-            <i class="fa fa-solid fa-user"></i>
-            <!-- <label for="account">帳號</label> -->
-            <input type="text" class="input" name="account" placeholder="email" v-model="account" />
-          </div>
-          <div class="input-box">
-            <!-- <label for="password">密碼</label> -->
-            <i id="eyes" class="fa fa-solid fa-eye" @click="toggle_eye(eye)"></i>
-            <input :type="eye ? 'text' : 'password'" name="password" id="user-password" placeholder="6~12英數字"
-              v-model="password" class="input" />
-          </div>
+  <div class="container-fruid my-5">
+    <div class="col-lg-8 col-md-12 mx-auto d-flex flex-nowrap">
+      <div class="col-lg-6 col-md-10 col-sm-12 mx-auto">
+        <div
+          id="form1"
+          class="form form-login"
+          :class="userName ? 'd-none' : 'd-show'"
+        >
+          <h2 class="text-nowrap">LOGIN FORM</h2>
+          <form
+            class="input-container"
+            name="myForm"
+            method="post"
+            target="hidefrime"
+            action="http://localhost/connect/doLogin.php"
+          >
+            <div class="input-box">
+              <i class="fa fa-solid fa-user"></i>
+              <!-- <label for="account">帳號</label> -->
+              <input
+                type="text"
+                class="input"
+                name="account"
+                placeholder="email"
+                v-model="account"
+              />
+            </div>
+            <div class="input-box">
+              <!-- <label for="password">密碼</label> -->
+              <i
+                id="eyes"
+                class="fa fa-solid fa-eye"
+                @click="toggle_eye(eye)"
+              ></i>
+              <input
+                :type="eye ? 'text' : 'password'"
+                name="password"
+                id="user-password"
+                placeholder="6~12英數字"
+                v-model="password"
+                class="input"
+              />
+            </div>
+            <!-- 機器人驗證 -->
+            <vue-recaptcha
+              :sitekey="SITEKEY"
+              :loadRecaptchaScript="true"
+              @verify="recaptchaPass"
+              @expired="recaptchaExpired"
+            ></vue-recaptcha>
+            <!-- <button @click="recaptcha" type="submit">recaptcha測試!</button> -->
+            <!-- 登入 -->
+            <button class="submit i" @click="login">SIGNIN</button>
+            <input
+              class="submit"
+              name="button"
+              type="submit"
+              value="CANCEL"
+              @click="cancel"
+            />
+            <br />
+            <br />
+            <br />
+            <div class="add">
+              <p>還不是會員?</p>
+              <a href="javascript:;" @click="add">加入會員</a>
+            </div>
 
-          <button class="submit i" @click="login">SIGNIN</button>
-          <input class="submit" name="button" type="submit" value="CANCEL" @click="cancel" />
+            <p class="mt-3">Login with social media.</p>
+            <div class="social-btn">
+              <i class="fa fa-brands fa-facebook"></i>
+              <i class="fa fa-brands fa-google"></i>
+              <i class="fa fa-brands fa-twitter"></i>
+            </div>
+          </form>
+          <!-- 阻止跳頁 -->
+          <iframe name="hidefrime" class="d-none"></iframe>
+        </div>
 
-          <br />
-          <br />
-          <br />
-          <div class="add">
-            <p>還不是會員?</p>
-            <a href="javascript:;" @click="add">加入會員</a>
-          </div>
-
-          <p class="mt-3">Login with social media.</p>
-          <div class="social-btn">
-            <i class="fa fa-brands fa-facebook"></i>
-            <i class="fa fa-brands fa-google"></i>
-            <i class="fa fa-brands fa-twitter"></i>
-          </div>
-        </form>
-        <!-- 阻止跳頁 -->
-        <iframe name="hidefrime" class="d-none"></iframe>
+        <!-- LOGOUT FORM -->
+        <div
+          id="form2"
+          class="form form-signup"
+          :class="userName ? 'd-show' : 'd-none'"
+        >
+          <h2>LOGOUT FORM</h2>
+          <form
+            class="input-container"
+            name="myForm"
+            method=""
+            target="hidefrime"
+          >
+            <div class="input-box">
+              <i class="fa fa-solid fa-user"></i>
+              <!-- <label for="account">帳號</label> -->
+              <h5 class="input">暱稱: {{ UuserName }}</h5>
+            </div>
+            <div class="input-box">
+              <!-- <label for="password">密碼</label> -->
+              <i class="fa fa-solid fa-envelope"></i>
+              <h5 class="input">帳號: {{ INNaccount }}</h5>
+            </div>
+            <input
+              class="submit"
+              name="button"
+              type="button"
+              value="ORDER"
+              @click="order"
+            />
+            <button class="submit i" @click="logout">LOGOUT</button>
+            <br />
+            <br />
+            <br />
+            <p>Login with social media.</p>
+            <div class="social-btn">
+              <i class="fa fa-brands fa-facebook"></i>
+              <i class="fa fa-brands fa-google"></i>
+              <i class="fa fa-brands fa-twitter"></i>
+            </div>
+          </form>
+          <!-- 阻止跳頁 -->
+          <iframe name="hidefrime" class="d-none"></iframe>
+        </div>
       </div>
 
-      <!-- LOGOUT FORM -->
-      <div id="form2" class="form form-signup" :class="userName ? 'd-show' : 'd-none'">
-        <h2>LOGOUT FORM</h2>
-        <form class="input-container" name="myForm" method="" target="hidefrime">
-          <div class="input-box">
-            <i class="fa fa-solid fa-user"></i>
-            <!-- <label for="account">帳號</label> -->
-            <h5 class="input">暱稱: {{ UuserName }}</h5>
-          </div>
-          <div class="input-box">
-            <!-- <label for="password">密碼</label> -->
-            <i class="fa fa-solid fa-envelope"></i>
-            <h5 class="input">帳號: {{ INNaccount }}</h5>
-          </div>
-          <input class="submit" name="button" type="button" value="ORDER" @click="order" />
-          <button class="submit i" @click="logout">LOGOUT</button>
-          <br />
-          <br />
-          <br />
-          <p>Login with social media.</p>
-          <div class="social-btn">
-            <i class="fa fa-brands fa-facebook"></i>
-            <i class="fa fa-brands fa-google"></i>
-            <i class="fa fa-brands fa-twitter"></i>
-          </div>
-        </form>
-        <!-- 阻止跳頁 -->
-        <iframe name="hidefrime" class="d-none"></iframe>
-      </div>
-
+      <!-- 活動圖 -->
+      <div class="activityImg col-6 d-none d-lg-block"></div>
     </div>
-
-  <!-- 活動圖 -->
-    <div class="activityImg col-6 d-none d-lg-block">
-    </div>
-
   </div>
-</div>
 </template>
 
 <script>
 // import axios from 'axios'
-// axios.defaults.baseURL = 'http://localhost:8080'
+
+import { VueRecaptcha } from "vue-recaptcha";
 export default {
+  components: { VueRecaptcha },
   data() {
     return {
       eye: false,
@@ -92,6 +144,9 @@ export default {
       success: false,
       userName: "",
       INaccount: "",
+      // 機器人
+      SITEKEY: "6LcJVX0gAAAAAB034tDootZ4gigcfBMR5bdb0uKM",
+      robotCheck: false,
     };
   },
   computed: {
@@ -134,6 +189,21 @@ export default {
         $("#eyes").addClass("fa-eye");
       }
     },
+    async recaptchaPass(pass) {
+      this.verify = true;
+      this.robotCheck = true; // 將布林值轉換成true
+      let data = new FormData();
+      data.append("reacptchaToken", pass); //將資料傳到後端
+      let { data: result } = await axios.post("http://localhost/connect/reacptchaToken.php", data); //你的PHP路徑
+      if (result.status == true) {
+        alert("驗證成功");
+      } else {
+        alert("機器人!發現機器人!"); //失敗
+      }
+    },
+    recaptchaExpired() {
+      this.verify = false;
+    },
     cancel() {
       this.$router.push("/");
     },
@@ -159,7 +229,7 @@ export default {
         data
       );
       console.log(result);
-      if (result) {
+      if (this.robotCheck == true && result) {
         // this.success == true;
         localStorage.setItem("user", JSON.stringify(result));
         $("#form2").removeClass("hide");
@@ -167,12 +237,12 @@ export default {
         this.$router.push("/");
       } else {
         // this.success == false;
-        alert("帳號或密碼錯誤");
+        alert("帳號密碼錯誤 或 你是機器人!");
         return false;
       }
     },
   },
-  created() { },
+  created() {},
 };
 </script>
 
@@ -332,8 +402,8 @@ body {
   }
 }
 
-.activityImg{
+.activityImg {
   background-image: url("../assets/logo-bg.jpg");
-  background-size:100% 100%
+  background-size: 100% 100%;
 }
 </style>

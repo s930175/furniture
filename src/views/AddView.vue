@@ -174,7 +174,6 @@ body {
   background: transparent;
 }
 .form {
-  margin-top: 10px;
   position: absolute;
   left: 0;
   top: 50%;
@@ -188,9 +187,9 @@ body {
 .form h2 {
   line-height: 60px;
   text-align: center;
-  background-color: #ffd167;
+  background-color: #44362B;
   font-size: 28px;
-  color: #00362e;
+  color: rgb(242, 233, 224);
 }
 .form .input-container {
   padding: 10px 1rem;
@@ -204,7 +203,7 @@ body {
   left: 5px;
   font-size: 26px;
   line-height: 40px;
-  color: #ffd167;
+  color: #44362B;
 }
 .form .input-box .input {
   width: 100%;
@@ -213,21 +212,21 @@ body {
   font-size: 16px;
   border: none;
   background-color: transparent;
-  border-bottom: 1px solid #ffd167;
+  border-bottom: 1px solid #44362B;
 }
 .form .submit {
   width: 100%;
   padding: 8px 1rem;
   font-size: 16px;
   border: none;
-  background-color: #ffd167;
-  color: #00362e;
+  background-color: #44362B;
+  color: rgb(242, 233, 224);
   margin-top: 20px;
   cursor: pointer;
 }
 .form .submit.i {
-  border: 2px solid #ffd167;
-  color: #ffd167;
+  border: 2px solid #44362B;
+  color: #44362B;
   background: transparent;
 }
 .add {
@@ -237,7 +236,7 @@ body {
 }
 .add a {
   text-decoration: none;
-  color: #ffd167;
+  color: #44362B;
   border: 1px solid #ffcc00;
   border-radius: 5px;
   padding: 2px;
@@ -245,7 +244,7 @@ body {
 }
 .form p {
   text-align: center;
-  color: #ffd167;
+  color: #44362B;
 }
 .form .social-btn {
   margin-top: 20px;
@@ -257,8 +256,8 @@ body {
   border-radius: 50%;
   text-align: center;
   line-height: calc(40px - 4px);
-  border: 2px solid #ffd167;
-  color: #ffd167;
+  border: 2px solid #44362B;
+  color: #44362B;
   cursor: pointer;
 }
 

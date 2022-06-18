@@ -17,7 +17,7 @@
         </tr>
         <hr>
         <tr v-for="payCart in payCarts" :key="payCart.id">
-          <td>{{payCart["id"]}}</td>
+          <td># {{payCart["id"]}}</td>
           <td>{{payCart["user_name"]}}</td>
           <td>{{payCart["product_name"]}}</td>
           <td>{{payCart["amount"]}}</td>
@@ -40,6 +40,7 @@
       />
       <input
         type="submit"
+        class="order-btn"
         :class="summ == 0 ? 'd-show' : 'd-none'"
         value="查看我的訂單"
         @click="payCart"
