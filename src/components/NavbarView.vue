@@ -25,14 +25,14 @@
         <!-- 待更改 -->
         <li class="nav-item dropdown mx-5">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            產品排序
+            各項優惠
           </a>
           <ul class="dropdown-menu menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">尺寸排序</a></li>
-            <li><a class="dropdown-item" href="#">重量排序</a></li>
-            <li><a class="dropdown-item" href="#">價格排序</a></li>
-            <li><a class="dropdown-item" href="#">種類排序</a></li>
-            <li><a class="dropdown-item" href="#">材質排序</a></li>
+            <li><a class="dropdown-item" href="#">買五送一</a></li>
+            <li><a class="dropdown-item" href="#">特價50%off</a></li>
+            <li><a class="dropdown-item" href="#">0元起標</a></li>
+            <li><a class="dropdown-item" href="#">優惠活動</a></li>
+            <li><a class="dropdown-item" href="#">滿千送百</a></li>
           </ul>
         </li>
 
@@ -67,8 +67,11 @@ export default {
 };
 </script>
 
-<style scoped lang="less">
+<style lang="less">
 // mask為logo設定
+.navbar{
+  z-index: 100;
+}
 .logoMask {
   display: flex;
   margin: auto 10px;

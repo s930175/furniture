@@ -8,7 +8,7 @@
         </p>
         <p>價錢: {{ price }}</p>
         <p class="desc">產品描述: {{ desc }}</p>
-        <!-- <div class="modal-overlay">
+        <div class="modal-overlay">
           <div class="modal-container">
             <h3>產品:{{ this.name }}</h3>
             <img :src="src" alt="" />
@@ -22,7 +22,7 @@
         </div>
         <button class="learn modal-btn" type="button" @click="learnMore">
           查看更多
-        </button> -->
+        </button>
       </div>
       <div class="btn">
         <button class="btn-count" @click="reductCount">-</button>

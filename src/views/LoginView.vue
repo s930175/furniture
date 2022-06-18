@@ -43,12 +43,14 @@
               />
             </div>
             <!-- 機器人驗證 -->
-            <vue-recaptcha
+            <div style="display:flex; justify-content:center">
+              <vue-recaptcha
               :sitekey="SITEKEY"
               :loadRecaptchaScript="true"
               @verify="recaptchaPass"
               @expired="recaptchaExpired"
             ></vue-recaptcha>
+            </div>
             <!-- <button @click="recaptcha" type="submit">recaptcha測試!</button> -->
             <!-- 登入 -->
             <button class="submit i" @click="login">SIGNIN</button>

@@ -75,7 +75,7 @@ export default {
     return {
       account: "",
       password: "",
-      userName: "Mark",
+      userName: "",
       success: false,
       passsword:""
     };
@@ -172,6 +172,7 @@ body {
   /* box-shadow: 0 0 30px 0 #000; */
   perspective: 1000px;
   background: transparent;
+  /* z-index: -1; */
 }
 .form {
   position: absolute;
@@ -179,7 +180,7 @@ body {
   top: 50%;
   width: 100%;
   height: 100%;
-  background-color: beige;
+  background-color: rgb(242, 233, 224);
   transform-style: preserve-3d;
   border: 1px solid rgb(184, 183, 183);
   box-shadow: 0 0 30px 0 rgb(184, 183, 183);

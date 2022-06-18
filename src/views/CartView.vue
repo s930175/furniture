@@ -6,7 +6,7 @@
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   />
-   <div :class="summ == 0 ? 'd-show' : 'd-none'">
+  <div :class="summ == 0 ? 'd-show' : 'd-none'">
     <div class="payCart-row">
       <div class="payCart-container">
         <tr>
@@ -15,12 +15,12 @@
           <td>訂購產品</td>
           <td>總額</td>
         </tr>
-        <hr>
+        <hr />
         <tr v-for="payCart in payCarts" :key="payCart.id">
-          <td># {{payCart["id"]}}</td>
-          <td>{{payCart["user_name"]}}</td>
-          <td>{{payCart["product_name"]}}</td>
-          <td>{{payCart["amount"]}}</td>
+          <td># {{ payCart["id"] }}</td>
+          <td>{{ payCart["user_name"] }}</td>
+          <td>{{ payCart["product_name"] }}</td>
+          <td>{{ payCart["amount"] }}</td>
         </tr>
       </div>
     </div>
@@ -87,6 +87,7 @@
         <input class="d-none" type="text" v-model="why" name="amount" />
       </ul>
       <button
+        type="button"
         :class="summ == 0 ? 'd-none' : 'd-show'"
         class="order-btn"
         @click="clearCart"
@@ -334,14 +335,14 @@ a {
   padding: 10px;
   margin-top: 400px;
 }
-.payCart-row{
+.payCart-row {
   display: flex;
   justify-content: center;
 }
-.payCart-container{
+.payCart-container {
   padding: 10px;
 }
-.payCart-container td{
+.payCart-container td {
   width: 200px;
   padding: 0;
 }
