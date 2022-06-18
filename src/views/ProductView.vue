@@ -12,9 +12,10 @@
 
   <Describe
     @choosen="putIntoCart"
-    v-for="item in showProducts"
+    v-for="(item,i) in showProducts"
     :key="item.id"
     :="item"
+    :index="i"
   >
   </Describe>
   <form action="" method="" target="hidefrime">

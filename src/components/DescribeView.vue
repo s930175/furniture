@@ -12,7 +12,7 @@
 
         <div class="modal-overlay">
           <div class="modal-container">
-            <h3>產品:{{ this.name }}</h3>
+            <h3>產品:{{ name }}</h3>
             <img :src="src" alt="" />
             <p>材質:{{ material }}</p>
             <p>尺寸:{{ size }}</p>
@@ -91,8 +91,8 @@ export default {
       alert(`成功加入購物車，數量:${this.count}`);
     },
     learnMore() {
-      $(".modal-overlay").addClass("open-modal");
-      console.log();
+      // console.log(this.index);
+      $(".modal-overlay").eq(this.index).addClass("open-modal");
     },
     close() {
       $(".modal-overlay").removeClass("open-modal");
@@ -111,6 +111,7 @@ export default {
     "size",
     "material",
     "weight",
+    "index"
   ],
   // async created() {
   //   const { data: res } = await this.$axios.get(
@@ -175,10 +176,9 @@ img {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.05);
+  background-color: rgba(255, 255, 255, 0.6);
   display: grid;
   place-items: center;
-  transition: var(--transition);
   visibility: hidden;
   z-index: -10;
 }
@@ -193,7 +193,7 @@ img {
 .close-btn {
   position: absolute;
   left: 93%;
-  bottom: 95%;
+  bottom: 94%;
   font-size: 22px;
   border: transparent;
   cursor: grab;
